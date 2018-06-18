@@ -2,6 +2,13 @@
 Ref/
 .ipynb_checkpoints/
 __pycache__/
+.idea/
 pickle/
 *.ini
 *.pickle
+*.pkl
+*.csv
+*.xlsx
+*.xls
+*.png
+
