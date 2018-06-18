@@ -1,11 +1,7 @@
-
 .DS_Store
 Ref/
 .ipynb_checkpoints/
 __pycache__/
+pickle/
 *.ini
-dbmodels.py
-Mongo-Try.ipynb
-ref_article.pickle
-requirements_py3_refactored.txt
-Stile bibliografia - Foglio1.pdf
+*.pickle
