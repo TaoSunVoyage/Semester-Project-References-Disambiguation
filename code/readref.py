@@ -1,3 +1,9 @@
+"""
+Functions of reading and storing references into different structure.
+
+Author: Tao Sun
+"""
+
 import mongoengine
 from mongoengine import *
 from mongoengine.queryset.visitor import Q

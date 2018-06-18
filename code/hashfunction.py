@@ -1,3 +1,9 @@
+"""
+Hash functions.
+
+Author: Tao Sun
+"""
+
 from nltk import bigrams
 from nltk.tokenize import RegexpTokenizer
 from nltk.corpus import stopwords

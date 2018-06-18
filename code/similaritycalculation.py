@@ -1,4 +1,8 @@
+"""
+Functions of similarity calcualtion between two references.
 
+Author: Tao Sun
+"""
 from nltk import ngrams
 from nltk.tokenize import RegexpTokenizer
 from nltk.corpus import stopwords

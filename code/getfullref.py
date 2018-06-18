@@ -1,3 +1,9 @@
+"""
+In this file, we get all of the "full" references which at least have fields "author", "title" and "year".
+
+Author: Tao Sun
+"""
+
 import mongoengine
 from mongoengine import *
 from mongoengine.queryset.visitor import Q

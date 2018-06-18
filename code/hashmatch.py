@@ -1,3 +1,9 @@
+"""
+In this file, we match one reference with all others sharing the same hashes.
+
+Author: Tao Sun
+"""
+
 import mongoengine
 from mongoengine import *
 from mongoengine.queryset.visitor import Q
