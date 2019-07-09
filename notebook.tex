@@ -1,0 +1,2286 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{GetHashSample}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{mongoengine}
+        \PY{k+kn}{from} \PY{n+nn}{mongoengine} \PY{k}{import} \PY{o}{*}
+        \PY{k+kn}{from} \PY{n+nn}{mongoengine}\PY{n+nn}{.}\PY{n+nn}{queryset}\PY{n+nn}{.}\PY{n+nn}{visitor} \PY{k}{import} \PY{n}{Q}
+        \PY{k+kn}{from} \PY{n+nn}{dbmodels} \PY{k}{import} \PY{o}{*}
+        \PY{k+kn}{from} \PY{n+nn}{hashfunction} \PY{k}{import} \PY{o}{*}
+        \PY{k+kn}{from} \PY{n+nn}{readref} \PY{k}{import} \PY{o}{*}
+        
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{from} \PY{n+nn}{bson}\PY{n+nn}{.}\PY{n+nn}{objectid} \PY{k}{import} \PY{n}{ObjectId}
+        \PY{k+kn}{import} \PY{n+nn}{configparser}
+        \PY{k+kn}{from} \PY{n+nn}{multiprocessing} \PY{k}{import} \PY{n}{Pool}
+        \PY{k+kn}{import} \PY{n+nn}{pickle}
+        
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} Read the confidentials.}
+        \PY{n}{credentials} \PY{o}{=} \PY{n}{configparser}\PY{o}{.}\PY{n}{ConfigParser}\PY{p}{(}\PY{p}{)}
+        \PY{n}{credentials}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{credentials.ini}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Connect to the database.}
+        \PY{n}{connect}\PY{p}{(}
+            \PY{n}{db} \PY{o}{=} \PY{n}{credentials}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{db}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+            \PY{n}{username} \PY{o}{=} \PY{n}{credentials}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{username}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+            \PY{n}{password} \PY{o}{=} \PY{n}{credentials}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{password}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+            \PY{n}{host} \PY{o}{=} \PY{n}{credentials}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{host}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} 
+            \PY{n}{port} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{credentials}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{port}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{,} 
+        \PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \hypertarget{get-filtered-references}{%
+\section{Get Filtered References}\label{get-filtered-references}}
+
+Assume the full reference should be like: - Author + Title + xxx - Title
++ Author + xxx - xxx + Author + Title - xxx + Title + Author
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{refs} \PY{o}{=} \PY{n}{Reference}\PY{o}{.}\PY{n}{objects}\PY{o}{.}\PY{n}{filter}\PY{p}{(}\PY{n}{Q}\PY{p}{(}\PY{n}{contents\PYZus{}\PYZus{}1\PYZus{}\PYZus{}tag}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{author}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{contents\PYZus{}\PYZus{}2\PYZus{}\PYZus{}tag}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{|}
+                                         \PY{n}{Q}\PY{p}{(}\PY{n}{contents\PYZus{}\PYZus{}2\PYZus{}\PYZus{}tag}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{author}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{contents\PYZus{}\PYZus{}1\PYZus{}\PYZus{}tag}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{|}
+                                         \PY{n}{Q}\PY{p}{(}\PY{n}{contents\PYZus{}\PYZus{}2\PYZus{}\PYZus{}tag}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{author}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{contents\PYZus{}\PYZus{}3\PYZus{}\PYZus{}tag}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{|}
+                                         \PY{n}{Q}\PY{p}{(}\PY{n}{contents\PYZus{}\PYZus{}3\PYZus{}\PYZus{}tag}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{author}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{contents\PYZus{}\PYZus{}2\PYZus{}\PYZus{}tag}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{Reference}\PY{o}{.}\PY{n}{objects}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:} 3850581
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{refNum} \PY{o}{=} \PY{n}{refs}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+         \PY{n}{refNum}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:} 1227978
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} test}
+        \PY{k}{for} \PY{n}{r} \PY{o+ow}{in} \PY{n}{refs}\PY{o}{.}\PY{n}{limit}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{read\PYZus{}ref}\PY{p}{(}\PY{n}{r}\PY{p}{)}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'doc\_id': ObjectId('595f9e11fe7683316b2dd3f5'), 'ref\_id': ObjectId('58e4ce00fe7683152b55e325'), 'surface': 'ATTI DELL’ATENEO necrologio GIOVANNI MANETTI Fra i soci scomparsi, Γ Ateneo deve rimpiangere il Comm. Dr. Giovanni Manetti, cara e degnissima figura di vero galantuomo. A riposo, dopo avere a lungo coperto a Venezia Γ Ufficio di Consigliere di Prefettura, fu, durante la grande guerra, Commissario per i profughi Veneti rico- verati lungo i lidi Anconitani, profondendo in quest’ opera i tesori della sua filantropia illuminata e squisita. Fu poi Commissario per la fondazione Querini Stampalia e attivissimo Vice- presidente dell’ opera « Nave Asilo Scilla per gli orfani di pescatori » ; presiedette infine per lunghi anni, con costante e fervido amore, la « Cassa del piccolo Credito » e la «S. A. Cooperativa Bagni di Mare fra impiegati e professionisti» al Lido.', 'order': 68001, 'author': ['ATTI DELL’ATENEO necrologio GIOVANNI MANETTI'], 'title': ['Fra i soci scomparsi, Γ Ateneo deve rimpiangere il Comm. Dr. Giovanni Manetti, cara e degnissima figura di vero galantuomo. A riposo, dopo avere a lungo coperto a Venezia Γ Ufficio di Consigliere di Prefettura, fu, durante la grande guerra, Commissario per i profughi Veneti rico- verati lungo i lidi Anconitani, profondendo in quest’ opera i tesori della sua filantropia illuminata e squisita. Fu poi Commissario per la fondazione Querini Stampalia e attivissimo Vice- presidente dell’ opera « Nave Asilo Scilla per gli orfani di pescatori » ; presiedette infine per lunghi anni, con costante e fervido amore, la « Cassa del piccolo Credito » e la «S. A. Cooperativa Bagni di Mare fra impiegati e professionisti» al Lido.']\}
+
+
+\{'doc\_id': ObjectId('595f9e37fe7683316b2dd4b4'), 'ref\_id': ObjectId('58e4ce00fe7683152b55e328'), 'surface': 'Hans Tietzte - Tietzte Conrad The drawings of the Venetian painters New York, 1944, p. 222 N. 1180.', 'order': 48002, 'author': ['Hans Tietzte - Tietzte Conrad'], 'title': ['The drawings of the Venetian painters New'], 'year': ['1944,'], 'page': ['p. 222']\}
+
+
+\{'doc\_id': ObjectId('595f9e37fe7683316b2dd4b4'), 'ref\_id': ObjectId('58e4ce00fe7683152b55e32b'), 'surface': 'Heil Palma devant als Zeichner, in "in Jahrbuch für Preussichen Kunstsammlungen 1926', 'order': 49001, 'author': ['Heil'], 'title': ['Palma devant als Zeichner,', 'Jahrbuch für Preussichen'], 'year': ['1926']\}
+
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/ipykernel/\_\_main\_\_.py:2: DeprecationWarning: generator 'QuerySet.\_iter\_results' raised StopIteration
+  from ipykernel import kernelapp as app
+
+    \end{Verbatim}
+
+    \hypertarget{apply-hash-functions}{%
+\section{Apply Hash Functions}\label{apply-hash-functions}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k}{def} \PY{n+nf}{read\PYZus{}hash}\PY{p}{(}\PY{n}{ref}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{    Read reference and generate hashes.}
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{n}{citation} \PY{o}{=} \PY{n}{read\PYZus{}ref}\PY{p}{(}\PY{n}{ref}\PY{p}{)}
+            \PY{n}{d} \PY{o}{=} \PY{p}{\PYZob{}}
+                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{doc\PYZus{}id}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{citation}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{doc\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ref\PYZus{}id}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{citation}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ref\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{surface}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{citation}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{surface}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hashes}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{hashCombined}\PY{p}{(}\PY{n}{citation}\PY{p}{)}
+            \PY{p}{\PYZcb{}}
+            \PY{k}{return} \PY{n}{d}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{pool} \PY{o}{=} \PY{n}{Pool}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/pymongo/topology.py:145: UserWarning: MongoClient opened before fork. Create MongoClient with connect=False, or create client after forking. See PyMongo's documentation for details: http://api.mongodb.org/python/current/faq.html\#pymongo-fork-safe>
+  "MongoClient opened before fork. Create MongoClient "
+/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/pymongo/topology.py:145: UserWarning: MongoClient opened before fork. Create MongoClient with connect=False, or create client after forking. See PyMongo's documentation for details: http://api.mongodb.org/python/current/faq.html\#pymongo-fork-safe>
+  "MongoClient opened before fork. Create MongoClient "
+/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/pymongo/topology.py:145: UserWarning: MongoClient opened before fork. Create MongoClient with connect=False, or create client after forking. See PyMongo's documentation for details: http://api.mongodb.org/python/current/faq.html\#pymongo-fork-safe>
+  "MongoClient opened before fork. Create MongoClient "
+/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/pymongo/topology.py:145: UserWarning: MongoClient opened before fork. Create MongoClient with connect=False, or create client after forking. See PyMongo's documentation for details: http://api.mongodb.org/python/current/faq.html\#pymongo-fork-safe>
+  "MongoClient opened before fork. Create MongoClient "
+Process ForkPoolWorker-5:
+Process ForkPoolWorker-7:
+Process ForkPoolWorker-8:
+Process ForkPoolWorker-6:
+Traceback (most recent call last):
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/multiprocessing/process.py", line 258, in \_bootstrap
+    self.run()
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/multiprocessing/process.py", line 93, in run
+    self.\_target(*self.\_args, **self.\_kwargs)
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/multiprocessing/pool.py", line 119, in worker
+    result = (True, func(*args, **kwds))
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/multiprocessing/pool.py", line 44, in mapstar
+    return list(map(*args))
+  File "<ipython-input-8-94a547bd5929>", line 5, in read\_hash
+    citation = read\_ref(ref)
+  File "/Users/suntao/Studying/Semester Project/readref.py", line 29, in read\_ref
+    doc = ref.get\_containing\_publication()
+  File "/Users/suntao/Studying/Semester Project/dbmodels.py", line 298, in get\_containing\_publication
+    return Book.objects(document\_id=self.document\_id).get()
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/mongoengine/queryset/base.py", line 272, in get
+    result = next(queryset)
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/mongoengine/queryset/base.py", line 1466, in \_\_next\_\_
+    raw\_doc = next(self.\_cursor)
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/mongoengine/queryset/base.py", line 1547, in \_cursor
+    self.\_cursor\_obj = self.\_collection.find(self.\_query,
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/mongoengine/queryset/base.py", line 1590, in \_query
+    self.\_mongo\_query = self.\_query\_obj.to\_query(self.\_document)
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/mongoengine/queryset/visitor.py", line 89, in to\_query
+    query = query.accept(QueryCompilerVisitor(document))
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/mongoengine/queryset/visitor.py", line 155, in accept
+    return visitor.visit\_query(self)
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/mongoengine/queryset/visitor.py", line 78, in visit\_query
+    return transform.query(self.document, **query.query)
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/mongoengine/queryset/transform.py", line 35, in query
+    merge\_query = defaultdict(list)
+KeyboardInterrupt
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/multiprocessing/process.py", line 258, in \_bootstrap
+    self.run()
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/multiprocessing/process.py", line 258, in \_bootstrap
+    self.run()
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/multiprocessing/process.py", line 258, in \_bootstrap
+    self.run()
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/multiprocessing/process.py", line 93, in run
+    self.\_target(*self.\_args, **self.\_kwargs)
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/multiprocessing/process.py", line 93, in run
+    self.\_target(*self.\_args, **self.\_kwargs)
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/multiprocessing/pool.py", line 119, in worker
+    result = (True, func(*args, **kwds))
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/multiprocessing/process.py", line 93, in run
+    self.\_target(*self.\_args, **self.\_kwargs)
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/multiprocessing/pool.py", line 119, in worker
+    result = (True, func(*args, **kwds))
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/multiprocessing/pool.py", line 44, in mapstar
+    return list(map(*args))
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/multiprocessing/pool.py", line 119, in worker
+    result = (True, func(*args, **kwds))
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/multiprocessing/pool.py", line 44, in mapstar
+    return list(map(*args))
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/multiprocessing/pool.py", line 44, in mapstar
+    return list(map(*args))
+  File "<ipython-input-8-94a547bd5929>", line 5, in read\_hash
+    citation = read\_ref(ref)
+  File "<ipython-input-8-94a547bd5929>", line 5, in read\_hash
+    citation = read\_ref(ref)
+  File "/Users/suntao/Studying/Semester Project/readref.py", line 29, in read\_ref
+    doc = ref.get\_containing\_publication()
+  File "<ipython-input-8-94a547bd5929>", line 5, in read\_hash
+    citation = read\_ref(ref)
+  File "/Users/suntao/Studying/Semester Project/readref.py", line 29, in read\_ref
+    doc = ref.get\_containing\_publication()
+  File "/Users/suntao/Studying/Semester Project/readref.py", line 29, in read\_ref
+    doc = ref.get\_containing\_publication()
+  File "/Users/suntao/Studying/Semester Project/dbmodels.py", line 298, in get\_containing\_publication
+    return Book.objects(document\_id=self.document\_id).get()
+  File "/Users/suntao/Studying/Semester Project/dbmodels.py", line 298, in get\_containing\_publication
+    return Book.objects(document\_id=self.document\_id).get()
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/mongoengine/queryset/base.py", line 272, in get
+    result = next(queryset)
+  File "/Users/suntao/Studying/Semester Project/dbmodels.py", line 298, in get\_containing\_publication
+    return Book.objects(document\_id=self.document\_id).get()
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/mongoengine/queryset/base.py", line 1466, in \_\_next\_\_
+    raw\_doc = next(self.\_cursor)
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/mongoengine/queryset/base.py", line 272, in get
+    result = next(queryset)
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/mongoengine/queryset/base.py", line 272, in get
+    result = next(queryset)
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/pymongo/cursor.py", line 1114, in next
+    if len(self.\_\_data) or self.\_refresh():
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/mongoengine/queryset/base.py", line 1466, in \_\_next\_\_
+    raw\_doc = next(self.\_cursor)
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/pymongo/cursor.py", line 1036, in \_refresh
+    self.\_\_collation))
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/mongoengine/queryset/base.py", line 1466, in \_\_next\_\_
+    raw\_doc = next(self.\_cursor)
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/pymongo/cursor.py", line 1114, in next
+    if len(self.\_\_data) or self.\_refresh():
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/pymongo/cursor.py", line 873, in \_\_send\_message
+    **kwargs)
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/pymongo/cursor.py", line 1114, in next
+    if len(self.\_\_data) or self.\_refresh():
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/pymongo/cursor.py", line 1036, in \_refresh
+    self.\_\_collation))
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/pymongo/mongo\_client.py", line 905, in \_send\_message\_with\_response
+    exhaust)
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/pymongo/cursor.py", line 1036, in \_refresh
+    self.\_\_collation))
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/pymongo/cursor.py", line 873, in \_\_send\_message
+    **kwargs)
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/pymongo/cursor.py", line 873, in \_\_send\_message
+    **kwargs)
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/pymongo/mongo\_client.py", line 916, in \_reset\_on\_error
+    return func(*args, **kwargs)
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/pymongo/mongo\_client.py", line 905, in \_send\_message\_with\_response
+    exhaust)
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/pymongo/mongo\_client.py", line 905, in \_send\_message\_with\_response
+    exhaust)
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/pymongo/server.py", line 136, in send\_message\_with\_response
+    response\_data = sock\_info.receive\_message(1, request\_id)
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/pymongo/mongo\_client.py", line 916, in \_reset\_on\_error
+    return func(*args, **kwargs)
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/pymongo/mongo\_client.py", line 916, in \_reset\_on\_error
+    return func(*args, **kwargs)
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/pymongo/server.py", line 136, in send\_message\_with\_response
+    response\_data = sock\_info.receive\_message(1, request\_id)
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/pymongo/server.py", line 136, in send\_message\_with\_response
+    response\_data = sock\_info.receive\_message(1, request\_id)
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/pymongo/pool.py", line 452, in receive\_message
+    self.\_raise\_connection\_failure(error)
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/pymongo/pool.py", line 452, in receive\_message
+    self.\_raise\_connection\_failure(error)
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/pymongo/pool.py", line 452, in receive\_message
+    self.\_raise\_connection\_failure(error)
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/pymongo/pool.py", line 552, in \_raise\_connection\_failure
+    raise error
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/pymongo/pool.py", line 552, in \_raise\_connection\_failure
+    raise error
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/pymongo/pool.py", line 450, in receive\_message
+    self.sock, operation, request\_id, self.max\_message\_size)
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/pymongo/pool.py", line 552, in \_raise\_connection\_failure
+    raise error
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/pymongo/pool.py", line 450, in receive\_message
+    self.sock, operation, request\_id, self.max\_message\_size)
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/pymongo/pool.py", line 450, in receive\_message
+    self.sock, operation, request\_id, self.max\_message\_size)
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/pymongo/network.py", line 137, in receive\_message
+    header = \_receive\_data\_on\_socket(sock, 16)
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/pymongo/network.py", line 137, in receive\_message
+    header = \_receive\_data\_on\_socket(sock, 16)
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/pymongo/network.py", line 137, in receive\_message
+    header = \_receive\_data\_on\_socket(sock, 16)
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/pymongo/network.py", line 164, in \_receive\_data\_on\_socket
+    chunk = sock.recv(length)
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/pymongo/network.py", line 164, in \_receive\_data\_on\_socket
+    chunk = sock.recv(length)
+  File "/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/pymongo/network.py", line 164, in \_receive\_data\_on\_socket
+    chunk = sock.recv(length)
+KeyboardInterrupt
+KeyboardInterrupt
+KeyboardInterrupt
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} test}
+         \PY{n}{temp} \PY{o}{=} \PY{n}{pool}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{read\PYZus{}hash}\PY{p}{,} \PY{n}{refs}\PY{o}{.}\PY{n}{limit}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{temp}\PY{p}{)}
+         \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:}                      doc\_id  \textbackslash{}
+         0  595f9e11fe7683316b2dd3f5   
+         1  595f9e37fe7683316b2dd4b4   
+         2  595f9e37fe7683316b2dd4b4   
+         
+                                                       hashes  \textbackslash{}
+         0  [giovanni\#asilo\#scilla, ateneo\#soci\#scomparsi,{\ldots}   
+         1  [hans\#drawings\#the, hans\#1943\#221, the\#drawing{\ldots}   
+         2  [devant\#als, heil\#palma\#devant\#als\#zeichner\#ja{\ldots}   
+         
+                              ref\_id                                            surface  
+         0  58e4ce00fe7683152b55e325  ATTI DELL’ATENEO necrologio GIOVANNI MANETTI F{\ldots}  
+         1  58e4ce00fe7683152b55e328  Hans Tietzte - Tietzte Conrad The drawings of {\ldots}  
+         2  58e4ce00fe7683152b55e32b  Heil Palma devant als Zeichner, in "in Jahrbuc{\ldots}  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}pickle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hashsample.pickle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{refNum}\PY{p}{,} \PY{l+m+mi}{50000}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Now we are at }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{.}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+             \PY{n}{temp} \PY{o}{=} \PY{n}{pool}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{read\PYZus{}hash}\PY{p}{,} \PY{n}{refs}\PY{p}{[}\PY{n}{i}\PY{p}{:}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{50000}\PY{p}{]}\PY{p}{)}
+             \PY{n}{df\PYZus{}temp} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{temp}\PY{p}{)}
+             \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{df\PYZus{}temp}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Now we are at 0.
+Now we are at 50000.
+Now we are at 100000.
+Now we are at 150000.
+Now we are at 200000.
+Now we are at 250000.
+Now we are at 300000.
+Now we are at 350000.
+Now we are at 400000.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        KeyboardInterrupt                         Traceback (most recent call last)
+
+        <ipython-input-13-c2351ca4ed2f> in <module>()
+          2 for i in range(0, refNum, 50000):
+          3     print("Now we are at \{\}.".format(i))
+    ----> 4     temp = pool.map(read\_hash, refs[i:i+50000])
+          5     df\_temp = pd.DataFrame(temp)
+          6     df = df.append(df\_temp)
+
+
+        /Users/suntao/anaconda3/envs/lb/lib/python3.6/multiprocessing/pool.py in map(self, func, iterable, chunksize)
+        264         in a list that is returned.
+        265         '''
+    --> 266         return self.\_map\_async(func, iterable, mapstar, chunksize).get()
+        267 
+        268     def starmap(self, func, iterable, chunksize=None):
+
+
+        /Users/suntao/anaconda3/envs/lb/lib/python3.6/multiprocessing/pool.py in get(self, timeout)
+        636 
+        637     def get(self, timeout=None):
+    --> 638         self.wait(timeout)
+        639         if not self.ready():
+        640             raise TimeoutError
+
+
+        /Users/suntao/anaconda3/envs/lb/lib/python3.6/multiprocessing/pool.py in wait(self, timeout)
+        633 
+        634     def wait(self, timeout=None):
+    --> 635         self.\_event.wait(timeout)
+        636 
+        637     def get(self, timeout=None):
+
+
+        /Users/suntao/anaconda3/envs/lb/lib/python3.6/threading.py in wait(self, timeout)
+        549             signaled = self.\_flag
+        550             if not signaled:
+    --> 551                 signaled = self.\_cond.wait(timeout)
+        552             return signaled
+        553 
+
+
+        /Users/suntao/anaconda3/envs/lb/lib/python3.6/threading.py in wait(self, timeout)
+        293         try:    \# restore state no matter what (e.g., KeyboardInterrupt)
+        294             if timeout is None:
+    --> 295                 waiter.acquire()
+        296                 gotit = True
+        297             else:
+
+
+        KeyboardInterrupt: 
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/pymongo/topology.py:145: UserWarning: MongoClient opened before fork. Create MongoClient with connect=False, or create client after forking. See PyMongo's documentation for details: http://api.mongodb.org/python/current/faq.html\#pymongo-fork-safe>
+  "MongoClient opened before fork. Create MongoClient "
+/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/pymongo/topology.py:145: UserWarning: MongoClient opened before fork. Create MongoClient with connect=False, or create client after forking. See PyMongo's documentation for details: http://api.mongodb.org/python/current/faq.html\#pymongo-fork-safe>
+  "MongoClient opened before fork. Create MongoClient "
+/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/pymongo/topology.py:145: UserWarning: MongoClient opened before fork. Create MongoClient with connect=False, or create client after forking. See PyMongo's documentation for details: http://api.mongodb.org/python/current/faq.html\#pymongo-fork-safe>
+  "MongoClient opened before fork. Create MongoClient "
+/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/pymongo/topology.py:145: UserWarning: MongoClient opened before fork. Create MongoClient with connect=False, or create client after forking. See PyMongo's documentation for details: http://api.mongodb.org/python/current/faq.html\#pymongo-fork-safe>
+  "MongoClient opened before fork. Create MongoClient "
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:}                      doc\_id  \textbackslash{}
+         0  595f9e11fe7683316b2dd3f5   
+         1  595f9e37fe7683316b2dd4b4   
+         2  595f9e37fe7683316b2dd4b4   
+         3  595f9e0efe7683316b2dd3eb   
+         4  595f9f57fe7683316b2dda8c   
+         
+                                                       hashes  \textbackslash{}
+         0  [giovanni\#asilo\#scilla, ateneo\#soci\#scomparsi,{\ldots}   
+         1  [hans\#drawings\#the, hans\#1943\#221, the\#drawing{\ldots}   
+         2  [devant\#als, heil\#palma\#devant\#als\#zeichner\#ja{\ldots}   
+         3  [croce\#modesti\#innumerevoli, croce\#vigilia\#mor{\ldots}   
+         4  [monticolo\#1906\#468, monticolo\#1906\#467, capit{\ldots}   
+         
+                              ref\_id                                            surface  
+         0  58e4ce00fe7683152b55e325  ATTI DELL’ATENEO necrologio GIOVANNI MANETTI F{\ldots}  
+         1  58e4ce00fe7683152b55e328  Hans Tietzte - Tietzte Conrad The drawings of {\ldots}  
+         2  58e4ce00fe7683152b55e32b  Heil Palma devant als Zeichner, in "in Jahrbuc{\ldots}  
+         3  58e4ce00fe7683152b55e330  LA CROCE el vialetto che girava attorno allo s{\ldots}  
+         4  58e4ce00fe7683152b55e336  Monticolo, I capitolari delle arti veneziane, {\ldots}  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} 400000
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{pool}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{df}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{100000}\PY{p}{]}\PY{o}{.}\PY{n}{to\PYZus{}pickle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hashsample1.pickle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{df}\PY{p}{[}\PY{l+m+mi}{100000}\PY{p}{:}\PY{l+m+mi}{200000}\PY{p}{]}\PY{o}{.}\PY{n}{to\PYZus{}pickle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hashsample2.pickle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{df}\PY{p}{[}\PY{l+m+mi}{200000}\PY{p}{:}\PY{l+m+mi}{300000}\PY{p}{]}\PY{o}{.}\PY{n}{to\PYZus{}pickle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hashsample3.pickle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{df}\PY{p}{[}\PY{l+m+mi}{300000}\PY{p}{:}\PY{l+m+mi}{400000}\PY{p}{]}\PY{o}{.}\PY{n}{to\PYZus{}pickle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hashsample4.pickle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{df}\PY{o}{.}\PY{n}{to\PYZus{}pickle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hashsample.pickle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{pool}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{map}{%
+\section{Map}\label{map}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k}{def} \PY{n+nf}{splitHash}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{:}
+            \PY{n}{s} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hashes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{stack}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{level}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+            \PY{n}{s}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hashtag}\PY{l+s+s1}{\PYZsq{}}
+            \PY{k}{return} \PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hashes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{s}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}pickle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hashsample.pickle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{n}{df\PYZus{}sample\PYZus{}split} \PY{o}{=} \PY{n}{splitHash}\PY{p}{(}\PY{n}{df}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{hash-statistics}{%
+\section{Hash Statistics}\label{hash-statistics}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{list\PYZus{}groupby} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+            \PY{n}{df\PYZus{}temp} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}pickle}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{./pickle/hash\PYZus{}split}\PY{l+s+si}{\PYZob{}i\PYZcb{}}\PY{l+s+s2}{.pickle}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{n}{df\PYZus{}temp} \PY{o}{=} \PY{n}{df\PYZus{}temp}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hashtag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ref\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+            \PY{n}{df\PYZus{}temp}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            \PY{n}{list\PYZus{}groupby}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{df\PYZus{}temp}\PY{p}{)}
+        \PY{n}{df\PYZus{}all} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{n}{list\PYZus{}groupby}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1
+2
+3
+4
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{df\PYZus{}all} \PY{o}{=} \PY{n}{df\PYZus{}all}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hashtag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{df\PYZus{}all} \PY{o}{=} \PY{n}{df\PYZus{}all}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         
+         \PY{n}{df\PYZus{}all}\PY{o}{.}\PY{n}{to\PYZus{}pickle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./pickle/hash\PYZus{}stat.pickle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{n}{df\PYZus{}all} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}pickle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./pickle/hash\PYZus{}stat.pickle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{c+c1}{\PYZsh{} In thousands}
+         \PY{n}{df\PYZus{}all}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k\PYZus{}group}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}all}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{p}{(}\PY{n}{x}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{)}
+         \PY{n}{df\PYZus{}all}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k\PYZus{}group}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}54}]:} k\_group
+         0    22374351
+         1          67
+         2          16
+         3          21
+         4           3
+         6           1
+         Name: counts, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{c+c1}{\PYZsh{} In hundreds for those below 1,000}
+         \PY{n}{df\PYZus{}all}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{h\PYZus{}group}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}all}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{p}{(}\PY{n}{x}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+         \PY{n}{df\PYZus{}all}\PY{p}{[}\PY{n}{df\PYZus{}all}\PY{o}{.}\PY{n}{counts}\PY{o}{\PYZlt{}}\PY{l+m+mi}{1000}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{h\PYZus{}group}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}55}]:} h\_group
+         0    22369404
+         1        3587
+         2         773
+         3         289
+         4         134
+         5          58
+         6          41
+         7          27
+         8          24
+         9          14
+         Name: counts, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{c+c1}{\PYZsh{} In tens, for those below 100}
+         \PY{n}{df\PYZus{}all}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{t\PYZus{}group}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}all}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{p}{(}\PY{n}{x}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         \PY{n}{df\PYZus{}all}\PY{p}{[}\PY{n}{df\PYZus{}all}\PY{o}{.}\PY{n}{counts}\PY{o}{\PYZlt{}}\PY{l+m+mi}{100}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{t\PYZus{}group}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}56}]:} t\_group
+         0    22228720
+         1       90892
+         2       24089
+         3       10675
+         4        5635
+         5        3282
+         6        2410
+         7        1609
+         8        1179
+         9         913
+         Name: counts, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{c+c1}{\PYZsh{} In ones, for those below 10}
+         \PY{n}{df\PYZus{}all}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{d\PYZus{}group}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}all}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{p}{(}\PY{n}{x}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         \PY{n}{df\PYZus{}all}\PY{p}{[}\PY{n}{df\PYZus{}all}\PY{o}{.}\PY{n}{counts}\PY{o}{\PYZlt{}}\PY{l+m+mi}{10}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{d\PYZus{}group}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}57}]:} d\_group
+         1    20004324
+         2     1401939
+         3      380207
+         4      178342
+         5      100915
+         6       63798
+         7       43459
+         8       31810
+         9       23926
+         Name: counts, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}85}]:} \PY{c+c1}{\PYZsh{} 1000+}
+         \PY{n}{df\PYZus{}all}\PY{p}{[}\PY{n}{df\PYZus{}all}\PY{o}{.}\PY{n}{k\PYZus{}group}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{values}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}85}]:} array(['repubblica\#venezia', 'san\#marco', 'storia\#venezia',
+                'atti\#convegno', 'cura\#1985', 'eta\#moderna', 'cura\#1984',
+                'cura\#1987', 'cura\#1983', 'cura\#1993', 'cura\#1996', 'cura\#1986',
+                'cura\#1997', 'cura\#1981', 'cura\#1995', 'cura\#1988', 'cura\#1989',
+                'cura\#1994', 'cura\#1991', 'cura\#1992', 'cura\#1998',
+                'catalogo\#mostra', 'cura\#1990', 'cura\#1982', 'cura\#1980',
+                'renaissance\#venice', 'storia\#cultura', 'cultura\#veneta',
+                'cura\#1979', 'moyen\#age', 'cura\#1999', 'repubblica\#veneta',
+                'cura\#2000', 'storia\#arte', 'cura\#2001', 'cura\#2002', 'cura\#2003',
+                'secolo\#xvi', 'cura\#atti\#convegno', 'cura\#1978', 'cura\#1973',
+                'cura\#1977', 'cura\#1974', 'cura\#1972', 'cura\#1968',
+                'dizionario\#biografico', 'storia\#italia', 'cura\#1967', 'cura\#2004',
+                'cura\#1976', 'cura\#1969', 'cura\#1966', 'biografico\#italiani',
+                'xvi\#secolo', 'cura\#1975', 'storia\#economica', 'cura\#1970',
+                'civilta\#veneziana', 'venezia\#eta', 'cura\#2005', 'cura\#1965',
+                'venezia\#origini', 'palazzo\#ducale', 'cura\#1964', 'cura\#1971',
+                'cura\#1963', 'caduta\#repubblica', 'scienze\#lettere',
+                'xviii\#secolo', 'cura\#1962', 'secoli\#xvi', 'lettere\#arti',
+                'studi\#onore', 'cura\#1959', 'citta\#venezia', 'cura\#1961',
+                'cura\#1960', 'cura\#1958', 'sixteenth\#century', 'archivio\#veneto',
+                'cura\#2006', 'pittura\#veneziana', 'cura\#storia\#venezia',
+                'secoli\#xiii', 'studi\#storia', 'istituto\#veneto', 'venezia\#secoli',
+                'laguna\#venezia', 'cura\#catalogo\#mostra',
+                'convegno\#internazionale', 'middle\#ages', 'secolo\#xviii',
+                'santa\#maria', 'cura\#2007', 'arte\#veneta', 'citta\#nobilissima',
+                'cura\#1957', 'storia\#documentata', 'origini\#caduta',
+                'veneto\#scienze', 'venezia\#venezia', 'letteratura\#italiana',
+                'paolo\#sarpi', 'venezia\#vita', 'cura\#1956',
+                'sansovino\#citta\#nobilissima', 'venetia\#citta',
+                'cozzi\#repubblica\#venezia'], dtype=object)
+\end{Verbatim}
+            
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \texttt{venezia} or \texttt{venetia} is quite common.
+\item
+  \texttt{cultura} means `culture' and \texttt{storia} means `history'.
+\item
+  \texttt{san\#marco} is one of the six sestieri of Venice.
+\item
+  `atti del convegno' means `conference proceedings'.
+  \texttt{atti\#convegno} is parsed as part of title.
+\item
+  `a cura di' means `edited by'. \texttt{cura} is included in the
+  hashtag as part of author due to parsing error.
+\item
+  \texttt{eta\#moderna} means `modern age'; \texttt{moyen\#age},
+  \texttt{middle\#age} means `middle age'.
+\item
+  `catalogo della mostra' means `exhibition catalog'.
+  \texttt{catalogo\#mostra} is parsed as part of title.
+\item
+  \texttt{xvi\#secolo}, \texttt{secoli\#xvi},
+  \texttt{sixteenth\#century}, \texttt{xviii\#secolo} means `16th
+  century' or `18th century'.
+\item
+  \texttt{dizionario\#biografico}, \texttt{biografico\#italiani} are
+  part of `Dizionario biografico degli Italiani', which is a
+  biographical dictionary.
+\item
+  \texttt{palazzo\#ducale} is a palace built in Venetian Gothic style.
+\item
+  \texttt{convegno\#internazionale} means `international conference'.
+\item
+  \texttt{santa\#maria} always showes up as part of church name.
+\item
+  \texttt{citta\#nobilissima}, \texttt{sansovino\#citta\#nobilissima}
+  points to the reference `Venetia città nobilissima et singolare' that
+  is commonly cited.
+\item
+  \texttt{origini\#caduta} points to the reference `Storia di Venezia
+  nella vita privata dalle origini alla caduta della Repubblica' that is
+  commonly cited.
+\item
+  \texttt{paolo\#sarpi} is an Italian historian.
+\item
+  \texttt{cozzi\#repubblica\#venezia} is a combination of author `cozzi'
+  and title bigram `repubblica\#venezia' which is the favorite topic of
+  this author.
+\end{enumerate}
+
+\textbf{Black List}: - \texttt{cura\#...} - \texttt{san\#marco} -
+\texttt{secolo}, \texttt{secoli} - \texttt{palazzo\#ducale} -
+\texttt{paolo\#sarpi} - \texttt{dizionario\#biografico},
+\texttt{biografico\#italiani}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{c+c1}{\PYZsh{} 500\PYZhy{}900+}
+         \PY{n}{df\PYZus{}all}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}all}\PY{o}{.}\PY{n}{counts}\PY{o}{\PYZlt{}}\PY{l+m+mi}{1000}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{df\PYZus{}all}\PY{o}{.}\PY{n}{h\PYZus{}group}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{values}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}64}]:} array(['medio\#evo', 'storia\#repubblica', 'cura\#2008', 'memorie\#storiche',
+                'seconda\#meta', 'studi\#storici', 'maggior\#consiglio',
+                'seventeenth\#century', 'nobilissima\#singolare', 'xvii\#xviii',
+                'secoli\#xiv', 'andrea\#palladio', 'sansovino\#venetia\#citta',
+                'vita\#privata', 'storia\#patria', 'documentata\#venezia',
+                'venezia\#secolo', 'storia\#diritto', 'societa\#veneta',
+                'luzzatto\#storia\#economica', 'internazionale\#studi', 'fine\#secolo',
+                'fifteenth\#century', 'fino\#secolo', 'marco\#venezia',
+                'museo\#correr', 'sansovino\#nobilissima\#singolare', 'chiesa\#san',
+                'romanin\#storia\#documentata', 'medioevo\#eta', 'early\#modem',
+                'chiesa\#venezia', 'arnaldi\#cultura\#veneta', 'ateneo\#veneto',
+                'archivio\#stato', 'caduta\#serenissima', 'early\#modern',
+                'stato\#venezia', 'vita\#opere', 'arnaldi\#storia\#cultura',
+                'romanin\#documentata\#venezia', 'patriziato\#veneziano', 'cura\#1955',
+                'aspetti\#problemi', 'xvi\#xviii', 'belle\#arti', 'ducale\#venezia',
+                'xvie\#siecle', 'venezia\#cinquecento', 'convegno\#studi',
+                'marco\#polo', 'italian\#renaissance', 'xix\#secolo', 'secolo\#xiv',
+                'hale\#1974', 'cura\#eta\#moderna', 'opere\#arte', 'hale\#1973',
+                'cessi\#repubblica\#venezia', 'hale\#renaissance\#venice',
+                'basilica\#san', 'museo\#civico', 'secoli\#xvii', 'cura\#2009',
+                'xvi\#xvii', 'secolo\#xvii', 'notizie\#storiche',
+                'pastore\#cultura\#veneta', 'meta\#secolo', 'xiii\#xiv', 'secoli\#xii',
+                'storia\#chiesa', 'cura\#1954', 'molmenti\#vita\#privata',
+                'molmenti\#storia\#venezia', 'hale\#1972', 'pastore\#storia\#cultura',
+                'universita\#padova', 'molmenti\#venezia\#vita',
+                'cura\#repubblica\#venezia', 'century\#venice', 'laguna\#veneta',
+                'cozzi\#1981', 'eighteenth\#century', 'economica\#venezia',
+                'archivio\#storico', 'venezia\#rinascimento', 'san\#giorgio',
+                'cenni\#storici', 'stato\#societa', 'alto\#medioevo',
+                'cinque\#seicento', 'scuola\#grande', 'cozzi\#1986', 'cura\#1941',
+                'atti\#istituto', 'renaissance\#italy', 'giorgio\#maggiore',
+                'giovanni\#battista', 'letteratura\#veneziana', 'sec\#xvi',
+                'xve\#siecle', 'venezia\#roma', 'studi\#veneziani', 'san\#giovanni',
+                'ambasciatori\#veneti', 'venezia\#terraferma',
+                'convegno\#intemazionale', 'xiii\#secolo', 'concilio\#trento',
+                'cura\#storia\#cultura', 'cura\#convegno\#internazionale',
+                'diritto\#comune', 'stocchi\#cultura\#veneta', 'xvii\#secolo',
+                'dogi\#venezia', 'venezia\#storia', 'canal\#grande', 'venezia\#fine',
+                'giovanni\#paolo', 'stocchi\#storia\#cultura', 'venezia\#ottocento',
+                'arte\#italiana', 'cura\#venezia\#origini', 'curiosita\#veneziane',
+                'pittori\#scultori', 'architettura\#scultura', 'dialetto\#veneziano',
+                'venezia\#settecento', 'medioevo\#rinascimento', 'storia\#civilta',
+                'new\#york', 'republique\#venise', 'atti\#congresso',
+                'ecclesiae\#venetae', 'economica\#veneziana', 'daniele\#manin',
+                'societa\#stato', 'storia\#letteratura', 'cura\#1942',
+                'veneziana\#secolo', 'stati\#italiani', 'stato\#veneziano',
+                'corner\#1749', 'comune\#venezia', 'societa\#giustizia',
+                'corner\#1748', 'cozzi\#1985', 'beltrami\#1955',
+                'cura\#cultura\#veneta', 'oriente\#occidente', 'corner\#1750',
+                'tafuri\#1984', 'cura\#2010', 'tenenti\#storia\#venezia',
+                'giustizia\#repubblica', 'cura\#1913', 'rinascimento\#venezia',
+                'jacopo\#sansovino', 'cura\#1939', 'cozzi\#1993', 'sec\#xviii',
+                'inscrizioni\#veneziane', 'luzzatto\#1962'], dtype=object)
+\end{Verbatim}
+            
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \texttt{medio\#evo} means middle age.
+\item
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{df\PYZus{}1} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}pickle}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{./pickle/hash\PYZus{}split1.pickle}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}106}]:} \PY{k}{for} \PY{n}{r} \PY{o+ow}{in} \PY{n}{df\PYZus{}1}\PY{p}{[}\PY{n}{df\PYZus{}1}\PY{o}{.}\PY{n}{hashtag}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{medio\PYZsh{}evo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{)}\PY{o}{.}\PY{n}{surface}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{r}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Bensa, Il contralto di assicurazione nel medio evo, Genova, 1884, p. 32 sg.;
+Augusto Torre, L’oggetto delle relazioni fra Ravenna e Venezia nel Medio evo in Miscel- lanea in onore di Roberto Cessi, Roma 1958, pp. 121-141.
+G. LUZZATTO, Le vicende del Porto di Venezia, dal primo Medio Evo allo scoppio della Guerra 1914-1918, in L. CANDIDA, Il Porto di Venezia, con introduzione storica di G. LUZZATTO, Venezia 1950, pp. 7-44,
+G. DE VERGOTTINI, Lineamenti storici della costituzione politica dell'Istria durante il Medio Evo, Roma 1924-25
+Flavio Testi, La musica italiana nel Medio Evo e nel Rinascimento, 1, Busto Arsizio, Bra- mante Editrice, 1977, pp. 395-396, n. 15.
+Pietro Selvatico, Sulla architettura e sulla scultura in Venezia dal Medio Evo sino ai nostri giorni, Venezia, Paolo Ripamonti Carpano, 1847;
+Camillo Borro, Architettura del Medio Evo in Italia, Milano, Hoepli, 1880, p. 308.
+PIETRO Selvatico, Sull’architettura e sulla scultura in Venezia. Dal Medio Evo sino ai giorni nostri. Studi di [{\ldots}] per servire di guida estetica, Venezia, Ripamonti Carcano, 1847,
+R. Caggese, Classi e comuni rurali nel Medio Evo italiano. Saggio di storia economica e giuridica, I, Firenze, Tip. Galileiana, 1907.
+P. S. LEICHT, Studi sulla proprietà fondiaria nel Medio Evo, Padova, Drucker, 1907.
+R. Cessi, Note per la storia delle società di commercio nel Medio Evo in Italia, Roma, 1917;
+U. Monneret de Villard, L’organizzazione industriale nell’Italia longobarda durante l’alto Medio Evo, «Archivio storico lombardo», 1919;
+L. Zdekauer, Fiera e mercato in Italia sulla fine del Medio Evo, Macerata, Bianchini, 1920;
+G. Mengozzi, La città italiana nell’alto Medio Evo, 2a ed. Firenze, La Nuova Italia, 1931;
+F. Vaisecchi, Le corporazioni nell’organismo poli- tico del Medio Evo, Milano, Alpes, 1931;
+A. Solmi, L’amministrazione finanziaria del Regno Italico nell’alto Medio Evo, Pavia, 1932;
+F. Carli, Storia del commercio italiano. Il mercato nell’alto Medio Evo, Padova, Cedam, 1934, in «Giornale», s. IV, a. L, 1935, voi. LXXVI, n. 3, pp. 142-145.
+F. Carli, Storia del commercio italiano. Il mercato nell’alto Medio Evo, Padova, Cedam, 1934, in «Weltwirtschaftliches Archiv», n.s., a. XLII, 1935, p. 116.
+Doren, Storia economica dell’Italia nel Medio Evo, traduzione di G. Luzzatto, Padova, Cedam, (Vicenza, Coop. tip. «F. Corridoni»), 1936, 8°, pp. IV, 65156.
+G. FORNASIERl, G. Falco, La Santa Romana Repubblica. Profilo storico del Medio Evo, Napoli, Ricciardi, 1943.
+
+    \end{Verbatim}
+
+    \hypertarget{filter-out-possible-full-references}{%
+\section{Filter Out Possible ``Full''
+References}\label{filter-out-possible-full-references}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} function for the reference resolutions}
+        \PY{k}{def} \PY{n+nf}{retain\PYZus{}reference}\PY{p}{(}\PY{n}{journal\PYZus{}reference}\PY{p}{,} \PY{n}{min\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{required\PYZus{}fields}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{author}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{title}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{    Determine whether the input reference should be retained, and thus resolved, or skipped.}
+        \PY{l+s+sd}{    This allows to skip erroneously extracted references, partial ones, etc.}
+        \PY{l+s+sd}{    :param journal\PYZus{}reference: the input reference (extracted from journals in LinkedBooks)}
+        \PY{l+s+sd}{    :type journal\PYZus{}reference: dict}
+        \PY{l+s+sd}{    :param min\PYZus{}size: the minimum number of fields `journal\PYZus{}reference` must have}
+        \PY{l+s+sd}{    :type min\PYZus{}size: int}
+        \PY{l+s+sd}{    :param required\PYZus{}fields: the fields that must be contained in `journal\PYZus{}reference`}
+        \PY{l+s+sd}{    :type required\PYZus{}fields: list of str}
+        \PY{l+s+sd}{    :return: bool \PYZhy{}\PYZhy{} True if the reference should be retained, False otherwise}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{n}{fields} \PY{o}{=} \PY{p}{[}\PY{n}{field}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tag}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{k}{for} \PY{n}{field} \PY{o+ow}{in} \PY{n}{journal\PYZus{}reference}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{contents}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+            \PY{k}{if}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{fields}\PY{p}{)}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{n}{min\PYZus{}size}\PY{p}{)}\PY{p}{:}
+                \PY{k}{if}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{fields}\PY{p}{)}\PY{o}{.}\PY{n}{intersection}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{required\PYZus{}fields}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{required\PYZus{}fields}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                    \PY{k}{return} \PY{k+kc}{True}
+                \PY{k}{else}\PY{p}{:}
+                    \PY{k}{return} \PY{k+kc}{False}
+            \PY{k}{else}\PY{p}{:}
+                \PY{k}{return} \PY{k+kc}{False}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{refs} \PY{o}{=} \PY{n}{Reference}\PY{o}{.}\PY{n}{objects}\PY{o}{.}\PY{n}{filter}\PY{p}{(}\PY{n}{Q}\PY{p}{(}\PY{n}{contents\PYZus{}\PYZus{}1\PYZus{}\PYZus{}tag}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{author}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{contents\PYZus{}\PYZus{}2\PYZus{}\PYZus{}tag}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{|}
+                                        \PY{n}{Q}\PY{p}{(}\PY{n}{contents\PYZus{}\PYZus{}2\PYZus{}\PYZus{}tag}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{author}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{contents\PYZus{}\PYZus{}1\PYZus{}\PYZus{}tag}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{|}
+                                        \PY{n}{Q}\PY{p}{(}\PY{n}{contents\PYZus{}\PYZus{}2\PYZus{}\PYZus{}tag}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{author}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{contents\PYZus{}\PYZus{}3\PYZus{}\PYZus{}tag}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{|}
+                                        \PY{n}{Q}\PY{p}{(}\PY{n}{contents\PYZus{}\PYZus{}3\PYZus{}\PYZus{}tag}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{author}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{contents\PYZus{}\PYZus{}2\PYZus{}\PYZus{}tag}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{rs} \PY{o}{=} \PY{p}{[}\PY{n}{r} \PY{k}{for} \PY{n}{r} \PY{o+ow}{in} \PY{n}{refs} \PY{k}{if} \PY{n}{retain\PYZus{}reference}\PY{p}{(}\PY{n}{r}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{required\PYZus{}fields}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{author}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{title}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/suntao/anaconda3/envs/lb/lib/python3.6/site-packages/ipykernel/\_\_main\_\_.py:1: DeprecationWarning: generator 'QuerySet.\_iter\_results' raised StopIteration
+  if \_\_name\_\_ == '\_\_main\_\_':
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{rs}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} 464068
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k+kn}{import} \PY{n+nn}{pickle}
+        \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rs.pickle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{f}\PY{p}{:}
+            \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{rs}\PY{p}{,} \PY{n}{f}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} find all things that are missing by my method}
+        \PY{n}{rs\PYZus{}not} \PY{o}{=} \PY{p}{[}\PY{n}{r} \PY{k}{for} \PY{n}{r} \PY{o+ow}{in} \PY{n}{Reference}\PY{o}{.}\PY{n}{objects}\PY{p}{(}\PY{p}{)} \PY{k}{if} \PY{n}{r} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{refs} \PY{k}{if} \PY{n}{retain\PYZus{}reference}\PY{p}{(}\PY{n}{r}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{]}
+        \PY{n+nb}{len}\PY{p}{(}\PY{n}{rs\PYZus{}not}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{rs\PYZus{}id} \PY{o}{=} \PY{p}{[}\PY{n}{r}\PY{o}{.}\PY{n}{id} \PY{k}{for} \PY{n}{r} \PY{o+ow}{in} \PY{n}{rs}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rs\PYZus{}id.pickle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{f}\PY{p}{:}
+            \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{rs\PYZus{}id}\PY{p}{,} \PY{n}{f}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{rs\PYZus{}not\PYZus{}id} \PY{o}{=} \PY{p}{[}\PY{n}{r}\PY{o}{.}\PY{n}{id} \PY{k}{for} \PY{n}{r} \PY{o+ow}{in} \PY{n}{rs\PYZus{}not}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rs\PYZus{}not\PYZus{}id.pickle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{f}\PY{p}{:}
+            \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{rs\PYZus{}not\PYZus{}id}\PY{p}{,} \PY{n}{f}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{select}{%
+\section{Select}\label{select}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{rid} \PY{o}{=} \PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{58e4ce01fe7683152b57ee3c}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{13}\PY{p}{)}\PY{p}{:}
+             \PY{n}{df\PYZus{}temp} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}pickle}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hashsample}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{.pickle}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+             \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}temp}\PY{p}{[}\PY{n}{df\PYZus{}temp}\PY{o}{.}\PY{n}{ref\PYZus{}id}\PY{o}{==}\PY{n}{rid}\PY{p}{]}\PY{p}{)} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{n}{hashes} \PY{o}{=} \PY{n}{df\PYZus{}temp}\PY{p}{[}\PY{n}{df\PYZus{}temp}\PY{o}{.}\PY{n}{ref\PYZus{}id}\PY{o}{==}\PY{n}{rid}\PY{p}{]}\PY{o}{.}\PY{n}{hashes}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n}{doc\PYZus{}id} \PY{o}{=} \PY{n}{df\PYZus{}temp}\PY{p}{[}\PY{n}{df\PYZus{}temp}\PY{o}{.}\PY{n}{ref\PYZus{}id}\PY{o}{==}\PY{n}{rid}\PY{p}{]}\PY{o}{.}\PY{n}{doc\PYZus{}id}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n}{surface} \PY{o}{=} \PY{n}{df\PYZus{}temp}\PY{p}{[}\PY{n}{df\PYZus{}temp}\PY{o}{.}\PY{n}{ref\PYZus{}id}\PY{o}{==}\PY{n}{rid}\PY{p}{]}\PY{o}{.}\PY{n}{surface}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{k}{break}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{hashes}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:} ['vienna\#venezia',
+          'eta\#moderna',
+          'fornasin\#eta\#moderna',
+          'fornasin\#patria\#friuli',
+          'studi\#venezia',
+          'friuli\#eta',
+          'fornasin\#venezia\#viabilita',
+          'fornasin\#friuli\#eta',
+          'venezia\#viabilita',
+          'fornasin\#moderna\#studi',
+          'fornasin\#studi\#venezia',
+          'moderna\#studi',
+          'fornasin\#viabilita\#patria',
+          'fornasin\#vienna\#venezia',
+          'patria\#friuli',
+          'fornasin\#vienna\#venezia\#viabilita\#patria\#friuli\#eta\#moderna\#studi\#venezia\#1999',
+          'viabilita\#patria']
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{13}\PY{p}{)}\PY{p}{:}
+             \PY{n}{df\PYZus{}temp} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}pickle}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hashsplit}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{.pickle}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+             \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}temp}\PY{p}{[}\PY{n}{df\PYZus{}temp}\PY{o}{.}\PY{n}{ref\PYZus{}id}\PY{o}{==}\PY{n}{rid}\PY{p}{]}\PY{p}{)} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{n}{hashtag} \PY{o}{=} \PY{n}{df\PYZus{}temp}\PY{p}{[}\PY{n}{df\PYZus{}temp}\PY{o}{.}\PY{n}{ref\PYZus{}id}\PY{o}{==}\PY{n}{rid}\PY{p}{]}\PY{o}{.}\PY{n}{hashtag}\PY{o}{.}\PY{n}{values}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{n}{hashtag}\PY{p}{)}
+             \PY{k}{break}
+         \PY{k}{del} \PY{n}{df\PYZus{}temp}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0 ['rizzi\#leoni\#zara\#ateneo\#veneto\#clxxv\#1988' 'rizzi\#ateneo\#veneto'
+ 'ateneo\#veneto' 'leoni\#zara' 'rizzi\#leoni\#zara' 'vienna\#venezia'
+ 'eta\#moderna' 'fornasin\#eta\#moderna' 'fornasin\#patria\#friuli'
+ 'studi\#venezia' 'friuli\#eta' 'fornasin\#venezia\#viabilita'
+ 'fornasin\#friuli\#eta' 'venezia\#viabilita' 'fornasin\#moderna\#studi'
+ 'fornasin\#studi\#venezia' 'moderna\#studi' 'fornasin\#viabilita\#patria'
+ 'fornasin\#vienna\#venezia' 'patria\#friuli'
+ 'fornasin\#vienna\#venezia\#viabilita\#patria\#friuli\#eta\#moderna\#studi\#venezia\#1999'
+ 'viabilita\#patria']
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{n}{df\PYZus{}temp} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}pickle}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hashsplit4.pickle}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{df\PYZus{}temp}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{4596}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}66}]:}                         doc\_id                    ref\_id  \textbackslash{}
+         4596  5960ca56fe76836a510e8378  59de7a2048e232540c5e7e12   
+         4596  5960ca56fe76836a510e8378  59de7a2048e232540c5e7e12   
+         4596  5960ca56fe76836a510e8378  59de7a2048e232540c5e7e12   
+         4596  5960ca56fe76836a510e8378  59de7a2048e232540c5e7e12   
+         4596  5960ca56fe76836a510e8378  59de7a2048e232540c5e7e12   
+         4596  5960ca56fe76836a510e8378  59de7a2048e232540c5e7e12   
+         4596  5960ca56fe76836a510e8378  59de7a2048e232540c5e7e12   
+         4596  5960ca56fe76836a510e8378  59de7a2048e232540c5e7e12   
+         4596  5960ca56fe76836a510e8378  59de7a2048e232540c5e7e12   
+         4596  5960ca56fe76836a510e8378  59de7a2048e232540c5e7e12   
+         4596  5960ca56fe76836a510e8378  59de7a2048e232540c5e7e12   
+         4596  5960ca56fe76836a510e8378  59de7a2048e232540c5e7e12   
+         4596  5960ca56fe76836a510e8378  59de7a2048e232540c5e7e12   
+         4596  5960ca56fe76836a510e8378  59de7a2048e232540c5e7e12   
+         4596  5960ca56fe76836a510e8378  59de7a2048e232540c5e7e12   
+         4596  5960ca56fe76836a510e8378  59de7a2048e232540c5e7e12   
+         4596  5960ca56fe76836a510e8378  59de7a2048e232540c5e7e12   
+         4596  5960ca56fe76836a510e8378  59de7a2048e232540c5e7e12   
+         4596  5960ca56fe76836a510e8378  59de7a2048e232540c5e7e12   
+         4596  5960ca56fe76836a510e8378  59de7a2048e232540c5e7e12   
+         4596  5960ca56fe76836a510e8378  59de7a2048e232540c5e7e12   
+         4596  5960ca56fe76836a510e8378  59de7a2048e232540c5e7e12   
+         4596  5960ca56fe76836a510e8378  59de7a2048e232540c5e7e12   
+         4596  5960ca56fe76836a510e8378  59de7a2048e232540c5e7e12   
+         4596  5960ca56fe76836a510e8378  59de7a2048e232540c5e7e12   
+         4596  5960ca56fe76836a510e8378  59de7a2048e232540c5e7e12   
+         4596  5960ca56fe76836a510e8378  59de7a2048e232540c5e7e12   
+         4596  5960ca56fe76836a510e8378  59de7a2048e232540c5e7e12   
+         4596  5960ca56fe76836a510e8378  59de7a2048e232540c5e7e12   
+         4596  5960ca56fe76836a510e8378  59de7a2048e232540c5e7e12   
+         {\ldots}                        {\ldots}                       {\ldots}   
+         4596  595fea20fe7683532bf6c0ab  59df53cf9be3c75c2e67b171   
+         4596  595fea20fe7683532bf6c0ab  59df53cf9be3c75c2e67b171   
+         4596  595fea20fe7683532bf6c0ab  59df53cf9be3c75c2e67b171   
+         4596  595fea20fe7683532bf6c0ab  59df53cf9be3c75c2e67b171   
+         4596  595fea20fe7683532bf6c0ab  59df53cf9be3c75c2e67b171   
+         4596  595fea20fe7683532bf6c0ab  59df53cf9be3c75c2e67b171   
+         4596  595fea20fe7683532bf6c0ab  59df53cf9be3c75c2e67b171   
+         4596  595fea20fe7683532bf6c0ab  59df53cf9be3c75c2e67b171   
+         4596  595fea20fe7683532bf6c0ab  59df53cf9be3c75c2e67b171   
+         4596  595fea20fe7683532bf6c0ab  59df53cf9be3c75c2e67b171   
+         4596  595fea20fe7683532bf6c0ab  59df53cf9be3c75c2e67b171   
+         4596  595fea20fe7683532bf6c0ab  59df53cf9be3c75c2e67b171   
+         4596  595fea20fe7683532bf6c0ab  59df53cf9be3c75c2e67b171   
+         4596  595fea20fe7683532bf6c0ab  59df53cf9be3c75c2e67b171   
+         4596  595fea20fe7683532bf6c0ab  59df53cf9be3c75c2e67b171   
+         4596  595fea20fe7683532bf6c0ab  59df53cf9be3c75c2e67b171   
+         4596  595fea20fe7683532bf6c0ab  59df53cf9be3c75c2e67b171   
+         4596  595fea20fe7683532bf6c0ab  59df53cf9be3c75c2e67b171   
+         4596  595fea20fe7683532bf6c0ab  59df53cf9be3c75c2e67b171   
+         4596  595fea20fe7683532bf6c0ab  59df53cf9be3c75c2e67b171   
+         4596  595fea20fe7683532bf6c0ab  59df53cf9be3c75c2e67b171   
+         4596  595fea20fe7683532bf6c0ab  59df53cf9be3c75c2e67b171   
+         4596  595fea20fe7683532bf6c0ab  59df53cf9be3c75c2e67b171   
+         4596  595fea20fe7683532bf6c0ab  59df53cf9be3c75c2e67b171   
+         4596  595fea20fe7683532bf6c0ab  59df53cf9be3c75c2e67b171   
+         4596  595fea20fe7683532bf6c0ab  59df53cf9be3c75c2e67b171   
+         4596  595fea20fe7683532bf6c0ab  59df53cf9be3c75c2e67b171   
+         4596  595fea20fe7683532bf6c0ab  59df53cf9be3c75c2e67b171   
+         4596  595fea20fe7683532bf6c0ab  59df53cf9be3c75c2e67b171   
+         4596  595fea20fe7683532bf6c0ab  59df53cf9be3c75c2e67b171   
+         
+                                                         surface  \textbackslash{}
+         4596  FIGURE AFFACCIATE AD UNA LOGGIA Affresco, m. 4{\ldots}   
+         4596  FIGURE AFFACCIATE AD UNA LOGGIA Affresco, m. 4{\ldots}   
+         4596  FIGURE AFFACCIATE AD UNA LOGGIA Affresco, m. 4{\ldots}   
+         4596  FIGURE AFFACCIATE AD UNA LOGGIA Affresco, m. 4{\ldots}   
+         4596  FIGURE AFFACCIATE AD UNA LOGGIA Affresco, m. 4{\ldots}   
+         4596  FIGURE AFFACCIATE AD UNA LOGGIA Affresco, m. 4{\ldots}   
+         4596  FIGURE AFFACCIATE AD UNA LOGGIA Affresco, m. 4{\ldots}   
+         4596  FIGURE AFFACCIATE AD UNA LOGGIA Affresco, m. 4{\ldots}   
+         4596  FIGURE AFFACCIATE AD UNA LOGGIA Affresco, m. 4{\ldots}   
+         4596  FIGURE AFFACCIATE AD UNA LOGGIA Affresco, m. 4{\ldots}   
+         4596  FIGURE AFFACCIATE AD UNA LOGGIA Affresco, m. 4{\ldots}   
+         4596  FIGURE AFFACCIATE AD UNA LOGGIA Affresco, m. 4{\ldots}   
+         4596  FIGURE AFFACCIATE AD UNA LOGGIA Affresco, m. 4{\ldots}   
+         4596  FIGURE AFFACCIATE AD UNA LOGGIA Affresco, m. 4{\ldots}   
+         4596  FIGURE AFFACCIATE AD UNA LOGGIA Affresco, m. 4{\ldots}   
+         4596  FIGURE AFFACCIATE AD UNA LOGGIA Affresco, m. 4{\ldots}   
+         4596  FIGURE AFFACCIATE AD UNA LOGGIA Affresco, m. 4{\ldots}   
+         4596  FIGURE AFFACCIATE AD UNA LOGGIA Affresco, m. 4{\ldots}   
+         4596  FIGURE AFFACCIATE AD UNA LOGGIA Affresco, m. 4{\ldots}   
+         4596  FIGURE AFFACCIATE AD UNA LOGGIA Affresco, m. 4{\ldots}   
+         4596  FIGURE AFFACCIATE AD UNA LOGGIA Affresco, m. 4{\ldots}   
+         4596  FIGURE AFFACCIATE AD UNA LOGGIA Affresco, m. 4{\ldots}   
+         4596  FIGURE AFFACCIATE AD UNA LOGGIA Affresco, m. 4{\ldots}   
+         4596  FIGURE AFFACCIATE AD UNA LOGGIA Affresco, m. 4{\ldots}   
+         4596  FIGURE AFFACCIATE AD UNA LOGGIA Affresco, m. 4{\ldots}   
+         4596  FIGURE AFFACCIATE AD UNA LOGGIA Affresco, m. 4{\ldots}   
+         4596  FIGURE AFFACCIATE AD UNA LOGGIA Affresco, m. 4{\ldots}   
+         4596  FIGURE AFFACCIATE AD UNA LOGGIA Affresco, m. 4{\ldots}   
+         4596  FIGURE AFFACCIATE AD UNA LOGGIA Affresco, m. 4{\ldots}   
+         4596  FIGURE AFFACCIATE AD UNA LOGGIA Affresco, m. 4{\ldots}   
+         {\ldots}                                                 {\ldots}   
+         4596  Lopez,  Inquisizione, stampa e censura{\ldots}, cit{\ldots}   
+         4596  Lopez,  Inquisizione, stampa e censura{\ldots}, cit{\ldots}   
+         4596  Lopez,  Inquisizione, stampa e censura{\ldots}, cit{\ldots}   
+         4596  Lopez,  Inquisizione, stampa e censura{\ldots}, cit{\ldots}   
+         4596  Lopez,  Inquisizione, stampa e censura{\ldots}, cit{\ldots}   
+         4596  Lopez,  Inquisizione, stampa e censura{\ldots}, cit{\ldots}   
+         4596  Lopez,  Inquisizione, stampa e censura{\ldots}, cit{\ldots}   
+         4596  Lopez,  Inquisizione, stampa e censura{\ldots}, cit{\ldots}   
+         4596  Lopez,  Inquisizione, stampa e censura{\ldots}, cit{\ldots}   
+         4596  Lopez,  Inquisizione, stampa e censura{\ldots}, cit{\ldots}   
+         4596  Lopez,  Inquisizione, stampa e censura{\ldots}, cit{\ldots}   
+         4596  Lopez,  Inquisizione, stampa e censura{\ldots}, cit{\ldots}   
+         4596  Lopez,  Inquisizione, stampa e censura{\ldots}, cit{\ldots}   
+         4596  Lopez,  Inquisizione, stampa e censura{\ldots}, cit{\ldots}   
+         4596  Lopez,  Inquisizione, stampa e censura{\ldots}, cit{\ldots}   
+         4596  Lopez,  Inquisizione, stampa e censura{\ldots}, cit{\ldots}   
+         4596  Lopez,  Inquisizione, stampa e censura{\ldots}, cit{\ldots}   
+         4596  Lopez,  Inquisizione, stampa e censura{\ldots}, cit{\ldots}   
+         4596  Lopez,  Inquisizione, stampa e censura{\ldots}, cit{\ldots}   
+         4596  Lopez,  Inquisizione, stampa e censura{\ldots}, cit{\ldots}   
+         4596  Lopez,  Inquisizione, stampa e censura{\ldots}, cit{\ldots}   
+         4596  Lopez,  Inquisizione, stampa e censura{\ldots}, cit{\ldots}   
+         4596  Lopez,  Inquisizione, stampa e censura{\ldots}, cit{\ldots}   
+         4596  Lopez,  Inquisizione, stampa e censura{\ldots}, cit{\ldots}   
+         4596  Lopez,  Inquisizione, stampa e censura{\ldots}, cit{\ldots}   
+         4596  Lopez,  Inquisizione, stampa e censura{\ldots}, cit{\ldots}   
+         4596  Lopez,  Inquisizione, stampa e censura{\ldots}, cit{\ldots}   
+         4596  Lopez,  Inquisizione, stampa e censura{\ldots}, cit{\ldots}   
+         4596  Lopez,  Inquisizione, stampa e censura{\ldots}, cit{\ldots}   
+         4596  Lopez,  Inquisizione, stampa e censura{\ldots}, cit{\ldots}   
+         
+                                                     hashtag  
+         4596                                affacciate\#1742  
+         4596                      loggia\#documenti\#fogolari  
+         4596                       figure\#affresco\#eseguito  
+         4596                    affacciate\#venezia\#gallerie  
+         4596                           loggia\#affresco\#00x1  
+         4596                       affacciate\#chiesa\#scalzi  
+         4596                    affacciate\#eseguito\#tiepolo  
+         4596                             figure\#casa\#loreto  
+         4596                         loggia\#trasporto\#santa  
+         4596                           loggia\#00x1\#staccato  
+         4596                                    figure\#1930  
+         4596                                   prima\#guerra  
+         4596                     affacciate\#distrutto\#volta  
+         4596                        loggia\#tiepolo\#novembre  
+         4596                        loggia\#staccato\#venezia  
+         4596                           loggia\#scalzi\#grande  
+         4596                     affacciate\#colonna\#provano  
+         4596                               staccato\#venezia  
+         4596                          figure\#scalzi\#durante  
+         4596                                distrutto\#volta  
+         4596                           mengozzi\#casa\#loreto  
+         4596                  affacciate\#gallerie\#accademia  
+         4596                            loggia\#volta\#chiesa  
+         4596                        mengozzi\#scalzi\#durante  
+         4596                              loggia\#santa\#casa  
+         4596                        figure\#staccato\#venezia  
+         4596                                  mengozzi\#1742  
+         4596                     affacciate\#guerra\#mondiale  
+         4596                         mengozzi\#chiesa\#scalzi  
+         4596                                  mengozzi\#1744  
+         {\ldots}                                             {\ldots}  
+         4596                           loggia\#durante\#prima  
+         4596                            figure\#prima\#guerra  
+         4596                    affacciate\#staccato\#venezia  
+         4596                              figure\#1743\#0\#1\#4  
+         4596                         figure\#guerra\#mondiale  
+         4596                                trasporto\#santa  
+         4596                              figure\#santa\#casa  
+         4596                       mengozzi\#grande\#affresco  
+         4596                                    figure\#1743  
+         4596                   affacciate\#affresco\#eseguito  
+         4596                                    loggia\#1743  
+         4596                               tiepolo\#novembre  
+         4596                                affacciate\#1932  
+         4596                           figure\#00x1\#staccato  
+         4596                                affacciate\#1743  
+         4596                                affacciate\#1931  
+         4596                     affacciate\#grande\#affresco  
+         4596                            figure\#volta\#chiesa  
+         4596                                    loggia\#1744  
+         4596                                 ando\#distrutto  
+         4596                                  chiesa\#scalzi  
+         4596                         mengozzi\#scalzi\#grande  
+         4596                        mengozzi\#ando\#distrutto  
+         4596  lopez\#inquisizione\#stampa\#censura\#cit\#210\#350  
+         4596                            inquisizione\#stampa  
+         4596                      lopez\#inquisizione\#stampa  
+         4596                           lopez\#stampa\#censura  
+         4596                                    censura\#cit  
+         4596                              lopez\#censura\#cit  
+         4596                                 stampa\#censura  
+         
+         [350 rows x 4 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+             \PY{n}{df\PYZus{}temp\PYZus{}s} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}pickle}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hashsample}\PY{l+s+si}{\PYZob{}i\PYZcb{}}\PY{l+s+s2}{.pickle}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{df\PYZus{}temp\PYZus{}s} \PY{o}{=} \PY{n}{df\PYZus{}temp\PYZus{}s}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ref\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+             \PY{n}{df\PYZus{}temp\PYZus{}s}\PY{o}{.}\PY{n}{to\PYZus{}pickle}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hashsample}\PY{l+s+si}{\PYZob{}i\PYZcb{}}\PY{l+s+s2}{.pickle}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{n}{df\PYZus{}temp\PYZus{}s} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}pickle}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hashsample1.pickle}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{n}{df\PYZus{}temp\PYZus{}s}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}56}]:}                          ref\_id                    doc\_id  \textbackslash{}
+         0      58e4ce00fe7683152b55e325  595f9e11fe7683316b2dd3f5   
+         1      58e4ce00fe7683152b55e328  595f9e37fe7683316b2dd4b4   
+         2      58e4ce00fe7683152b55e32b  595f9e37fe7683316b2dd4b4   
+         3      58e4ce00fe7683152b55e330  595f9e0efe7683316b2dd3eb   
+         4      58e4ce00fe7683152b55e336  595f9f57fe7683316b2dda8c   
+         5      58e4ce00fe7683152b55e338  595f9e34fe7683316b2dd4ab   
+         6      58e4ce00fe7683152b55e339  595f9e29fe7683316b2dd470   
+         7      58e4ce00fe7683152b55e33a  595f9e29fe7683316b2dd470   
+         8      58e4ce00fe7683152b55e33c  595f9e29fe7683316b2dd470   
+         9      58e4ce00fe7683152b55e33d  595f9e2afe7683316b2dd476   
+         10     58e4ce00fe7683152b55e33e  595f9e2afe7683316b2dd476   
+         11     58e4ce00fe7683152b55e33f  595f9e2afe7683316b2dd476   
+         12     58e4ce00fe7683152b55e34f  595f9e39fe7683316b2dd4bc   
+         13     58e4ce00fe7683152b55e351  595f9e39fe7683316b2dd4bc   
+         14     58e4ce00fe7683152b55e352  595f9e39fe7683316b2dd4bc   
+         15     58e4ce00fe7683152b55e359  595f9e34fe7683316b2dd4ab   
+         16     58e4ce00fe7683152b55e35a  595f9e36fe7683316b2dd4ae   
+         17     58e4ce00fe7683152b55e35b  595f9e36fe7683316b2dd4ae   
+         18     58e4ce00fe7683152b55e361  595f9f98fe7683316b2ddbe2   
+         19     58e4ce00fe7683152b55e364  595f9f7ffe7683316b2ddb5f   
+         20     58e4ce00fe7683152b55e365  595f9f7ffe7683316b2ddb5f   
+         21     58e4ce00fe7683152b55e370  595f9e53fe7683316b2dd543   
+         22     58e4ce00fe7683152b55e371  595f9e53fe7683316b2dd543   
+         23     58e4ce00fe7683152b55e373  595f9e53fe7683316b2dd543   
+         24     58e4ce00fe7683152b55e377  595f9e36fe7683316b2dd4b0   
+         25     58e4ce00fe7683152b55e37a  595f9e10fe7683316b2dd3f2   
+         26     58e4ce00fe7683152b55e37b  595f9e10fe7683316b2dd3f2   
+         27     58e4ce00fe7683152b55e37d  595f9e10fe7683316b2dd3f2   
+         28     58e4ce00fe7683152b55e37f  595f9e10fe7683316b2dd3f2   
+         29     58e4ce00fe7683152b55e383  595f9f52fe7683316b2dda7a   
+         {\ldots}                         {\ldots}                       {\ldots}   
+         99970  58e4ce01fe7683152b59d311  595fa073fe7683316b2de926   
+         99971  58e4ce01fe7683152b59d321  595fa073fe7683316b2de926   
+         99972  58e4ce01fe7683152b59d324  595fa073fe7683316b2de926   
+         99973  58e4ce01fe7683152b59d32f  595fa073fe7683316b2de926   
+         99974  58e4ce01fe7683152b59d33c  595fa073fe7683316b2de926   
+         99975  58e4ce01fe7683152b59d350  595fa073fe7683316b2de926   
+         99976  58e4ce01fe7683152b59d359  595fa073fe7683316b2de926   
+         99977  58e4ce01fe7683152b59d35e  595fa073fe7683316b2de926   
+         99978  58e4ce01fe7683152b59d35f  595fa073fe7683316b2de926   
+         99979  58e4ce01fe7683152b59d364  595fa073fe7683316b2de926   
+         99980  58e4ce01fe7683152b59d36b  595fa073fe7683316b2de926   
+         99981  58e4ce01fe7683152b59d374  595fa073fe7683316b2de926   
+         99982  58e4ce01fe7683152b59d381  595fa073fe7683316b2de926   
+         99983  58e4ce01fe7683152b59d38a  595fa073fe7683316b2de926   
+         99984  58e4ce01fe7683152b59d397  595fa073fe7683316b2de926   
+         99985  58e4ce01fe7683152b59d39f  595fa073fe7683316b2de926   
+         99986  58e4ce01fe7683152b59d3a0  595fa073fe7683316b2de926   
+         99987  58e4ce01fe7683152b59d3a4  595fa073fe7683316b2de926   
+         99988  58e4ce01fe7683152b59d3ac  595fa073fe7683316b2de926   
+         99989  58e4ce01fe7683152b59d3ad  595fa073fe7683316b2de926   
+         99990  58e4ce01fe7683152b59d3af  595fa073fe7683316b2de926   
+         99991  58e4ce01fe7683152b59d3b8  595fa073fe7683316b2de926   
+         99992  58e4ce01fe7683152b59d3c2  595fa073fe7683316b2de926   
+         99993  58e4ce01fe7683152b59d3c5  595fa073fe7683316b2de926   
+         99994  58e4ce01fe7683152b59d3c8  595fa073fe7683316b2de926   
+         99995  58e4ce01fe7683152b59d3c9  595fa06bfe7683316b2de75a   
+         99996  58e4ce01fe7683152b59d3ca  595fa06bfe7683316b2de75a   
+         99997  58e4ce01fe7683152b59d3cb  595fa06bfe7683316b2de75a   
+         99998  58e4ce01fe7683152b59d3cd  595fa06bfe7683316b2de75a   
+         99999  58e4ce01fe7683152b59d3d1  595fa06bfe7683316b2de75a   
+         
+                                                           hashes  \textbackslash{}
+         0      [giovanni\#asilo\#scilla, ateneo\#soci\#scomparsi,{\ldots}   
+         1      [hans\#drawings\#the, hans\#1943\#221, the\#drawing{\ldots}   
+         2      [devant\#als, heil\#palma\#devant\#als\#zeichner\#ja{\ldots}   
+         3      [croce\#modesti\#innumerevoli, croce\#vigilia\#mor{\ldots}   
+         4      [monticolo\#1906\#468, monticolo\#1906\#467, capit{\ldots}   
+         5      [croce\#pascoli, rodaun\#tre, croce\#articoli\#cro{\ldots}   
+         6      [anno\#cxlii, veneto\#anno\#cxlii, ateneo\#anno\#cx{\ldots}   
+         7      [freemantlc\#caro, australia\#colombo\#freemantlc{\ldots}   
+         8      [scarica\#acqua, purtroppo\#pom\#pieri, purtroppo{\ldots}   
+         9      [postilla\#tiepolesca\#ipinse\#venezia, tiepolesc{\ldots}   
+         10     [porto\#oggi\#cipollato, angelo\#vincenzo, cipoll{\ldots}   
+         11     [morassi\#1941, morassi\#precisazioni\#tiepolo, m{\ldots}   
+         12     [itinerario\#terra, sanudo\#1848, sanudo\#1847, s{\ldots}   
+         13     [chiori\#cavriolo\#situato, chiori\#serviva\#addes{\ldots}   
+         14     [cappellini\#1875, cappellini\#lendinara\#castell{\ldots}   
+         15     [croce\#pascoli, rodaun\#tre, croce\#articoli\#cro{\ldots}   
+         16     [annunzio\#comincia\#facile, carducci\#carattere\#{\ldots}   
+         17     [borgese\#inviai\#croce, borgese\#pubblicati\#inse{\ldots}   
+         18     [filippo\#otto\#sain, otto\#sain, filippo\#lanz\#ot{\ldots}   
+         19     [dennis\#1560\#1626, biblioteca\#gentiluomo\#coneg{\ldots}   
+         20     [intorno\#anno, rhodes\#1600\#ateneo, rhodes\#cone{\ldots}   
+         21     [achille\#1941\#104, bosisio\#1942\#106, achille\#1{\ldots}   
+         22     [vittorio\#forte\#poeta, vittorio\#pompeo\#molment{\ldots}   
+         23     [fogazzaro\#ateneo, bosisio\#ateneo\#veneto, bosi{\ldots}   
+         24     [tempi\#crisi, drammatico\#molto\#tempi, crisi\#te{\ldots}   
+         25     [anni\#parecchi, oggi\#casa\#carmini, arte\#italia{\ldots}   
+         26     [scultorea\#ottone, modigliani\#giche\#inspirazio{\ldots}   
+         27     [viani\#romanelli\#messina, mafai\#seibezzi\#lillo{\ldots}   
+         28     [catalogo\#domenico\#natura, catalogo\#violini\#ri{\ldots}   
+         29     [note\#arte\#veneta, bortolotto\#chiesa\#san, san\#{\ldots}   
+         {\ldots}                                                  {\ldots}   
+         99970  [renzi\#1869, renzi\#anno\#ossia, renzi\#1869\#154,{\ldots}   
+         99971                                      [tanucci\#xiv]   
+         99972  [sardo\#1990\#195\#198, sardo\#londra\#xviii, sardo{\ldots}   
+         99973  [villani\#politica\#cit, politica\#cit, villani\#b{\ldots}   
+         99974  [provveditori\#sanita, mauro\#provveditori\#sanit{\ldots}   
+         99975  [felloni\#seicento\#restaurazione, felloni\#1972\#{\ldots}   
+         99976                             [dispacci\#xxi\#657\#658]   
+         99977  [citta\#stesso, guidotti\#1780\#strazzullo, redas{\ldots}   
+         99978  [carso\#tamente\#spediti, provano\#intento, poles{\ldots}   
+         99979  [058\#grano, kaunitz\#rilasciare\#altro, kaunitz\#{\ldots}   
+         99980                     [tanucci\#xiii\#336\#386\#388\#394]   
+         99981                              [tanucci\#xiv\#356\#357]   
+         99982  [uomo\#opera, assante\#jannucci\#uomo, battista\#m{\ldots}   
+         99983                                  [tanucci\#xiv\#458]   
+         99984  [istoria\#vera, liani\#istoria\#vera\#controversia{\ldots}   
+         99985  [macry\#mercato\#rit, mercato\#rit, macry\#mercato{\ldots}   
+         99986  [distacamento\#monte, provincia\#abruzzo, creta\#{\ldots}   
+         99987  [istoria\#vera, vera\#cit, galiani\#istoria\#vera\#{\ldots}   
+         99988  [mercato\#soaeta, macry\#mercato\#soaeta, macry\#m{\ldots}   
+         99989  [pitteri\#1766, mauro\#1766, pitteri\#1767, pitte{\ldots}   
+         99990  [macry\#societa\#mercato, macry\#societa\#mercato\#{\ldots}   
+         99991  [lignola\#presidente\#cappa, lignola\#parla\#negoz{\ldots}   
+         99992  [mauro\#civitavecchia\#poco, pitteri\#spedito\#imb{\ldots}   
+         99993  [vivi\#1943\#95\#97, vivi\#1943\#96\#95, vivi\#1943\#9{\ldots}   
+         99994  [macry\#societa\#mercato, societa\#mercato, macry{\ldots}   
+         99995  [mer\#descendre\#defendant, est\#xvne\#siecle, qua{\ldots}   
+         99996  [mare\#adriatico, sarpi\#1944, sarpi\#1945, sarpi{\ldots}   
+         99997  [sarpi\#1969\#622\#632, sarpi\#1970\#624\#630, sarpi{\ldots}   
+         99998  [pin\#2001\#393\#395, pin\#2000\#243, pin\#2002, pin{\ldots}   
+         99999  [opere\#rit, sarpi\#opere\#rit\#1311, sarpi\#opere\#{\ldots}   
+         
+                                                          surface  
+         0      ATTI DELL’ATENEO necrologio GIOVANNI MANETTI F{\ldots}  
+         1      Hans Tietzte - Tietzte Conrad The drawings of {\ldots}  
+         2      Heil Palma devant als Zeichner, in "in Jahrbuc{\ldots}  
+         3      LA CROCE el vialetto che girava attorno allo s{\ldots}  
+         4      Monticolo, I capitolari delle arti veneziane, {\ldots}  
+         5      B. Croce. Intanto erano giunti a Rodaun i tre {\ldots}  
+         6                 ATENEO VENETO Anno CXLII Vol. 135 - N.  
+         7      VIAGGIO PER L’AUSTRALIA Da bordo S/S Toscana f{\ldots}  
+         8      Purtroppo, dopo un quarto d’ora arrivarono i p{\ldots}  
+         9               UNA POSTILLA TIEPOLESCA ipinse a Venezia  
+         10     Sandi Porto, oggi Cipollato a S. Angelo. Vince{\ldots}  
+         11     Morassi, Novità e precisazioni sul Tiepolo in {\ldots}  
+         12     M. Sañudo, Itinerario per la terra di Venezia {\ldots}  
+         13     Mar- chiori, ed il terzo chiamato Cavriolo, si{\ldots}  
+         14     Cappellini, Memorie di Lendinara. Il Castello,{\ldots}  
+         15     B. Croce. Intanto erano giunti a Rodaun i tre {\ldots}  
+         16     D’Annunzio. Del Carducci, mi occupo di propo- {\ldots}  
+         17     G. A. Borgese, per ringra- ziamento del suo Go{\ldots}  
+         18     Filippo Lanz, Otto Sain, Misha Seifert, Albino{\ldots}  
+         19     Dennis E. Rhodes ADDENDUM PER LA BIBLIOTECA DI{\ldots}  
+         20     D.E. Rhodes, Una biblioteca privata a Coneglia{\ldots}  
+         21     Achille Bosisio, Giosuè Carducci e un letteral{\ldots}  
+         22     Vittorio Salmini, forte poeta e drammaturgo co{\ldots}  
+         23     Achille Bosisio, Un ricordo di A. Fogazzaro al{\ldots}  
+         24     LA CRISI DEL TEATRO DRAMMATICO S i parla molto{\ldots}  
+         25     ARTE ITALIANA D’OGGI IN UNA RACCOLTA VENEZIANA{\ldots}  
+         26     Modigliani : cioè nel senso primo e più ovvio {\ldots}  
+         27     Viani e Mafai, Seibezzi e Lilloni, Romanelli e{\ldots}  
+         28     Diego Valeri CATALOGO PITTURA Campigli Massimo{\ldots}  
+         29     NOTE 1A. Alver.X Bortolotto, II pavimento maio{\ldots}  
+         {\ldots}                                                  {\ldots}  
+         99970  De Renzi, Napoli nell’anno 17 64 ossia documen{\ldots}  
+         99971                             (Tanucci, xiv, p. 77).  
+         99972  E. Lo Sardo, Napoli e Londra nel XVIII secolo{\ldots}  
+         99973             Villani, Una battaglia politica, cit.;  
+         99974  MAURO PITTERI 66. Gobbi ai Provveditori alla S{\ldots}  
+         99975  G. Felloni, Gli investimenti finanziari genove{\ldots}  
+         99976                        Dispacci, xxi, pp. 657-658:  
+         99977  Guidotti, celebre avvocato napoletano redasse {\ldots}  
+         99978  «Carso, Orgnano, Stiria, Polesine e Padovano e{\ldots}  
+         99979  Kaunitz, Brentani rifiuta di sottoporsi a giud{\ldots}  
+         99980                Tanucci, xiii, pp. 336,386-388,394.  
+         99981                         Tanucci, xiv, pp. 356-357.  
+         99982  F. Assante, Giovati Battista Maria Jannucci. L{\ldots}  
+         99983                              Tanucci, xiv, p. 458;  
+         99984  F. Ga- liani, Istoria vera della controversia {\ldots}  
+         99985                 Macry, Mercato, rit., pp. 330-332.  
+         99986  Chieti, nella provincia d’Abruzzo, il distacam{\ldots}  
+         99987               Galiani, Istoria vera, cit., p. 313.  
+         99988             Macry, Mercato e soaetà, cit., p. 356.  
+         99989  MAURO PITTERI 95. Gobbi al Senato, Napoli, 4 f{\ldots}  
+         99990   Macry, Società e mercato, cit., pp. 325-328:339,  
+         99991  Lignola, banchiere e mercante, presidente di c{\ldots}  
+         99992  MAURO PITTERI e spedito con imbarcazioni napol{\ldots}  
+         99993  E. Vivi ani della Robbia, Bernardo Tanucci e i{\ldots}  
+         99994            Macry, Società e mercato, cit., p. 428.  
+         99995  QUAND LA MER EST TERRITOIRE. PAOLO SARPI ET LE{\ldots}  
+         99996  P. Sarpi, Il Dominio del Mare Adriatico, a cur{\ldots}  
+         99997  P. Sarpi, Opere, a cura di G. e L. Cozzi, Mila{\ldots}  
+         99998  C. Pin, Dominio del Mare Adriatico della Seren{\ldots}  
+         99999                    P. Sarpi, Opere, rit., p. 1311,  
+         
+         [100000 rows x 4 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./sample\PYZus{}csv/58e4ce00fe7683152b55e336.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}    Unnamed: 0               seed\_ref\_id               seed\_doc\_id  \textbackslash{}
+        0           0  58e4ce00fe7683152b55e336  595f9f57fe7683316b2dda8c   
+        1          17  58e4ce00fe7683152b55e336  595f9f57fe7683316b2dda8c   
+        2          34  58e4ce00fe7683152b55e336  595f9f57fe7683316b2dda8c   
+        3          41  58e4ce00fe7683152b55e336  595f9f57fe7683316b2dda8c   
+        4          48  58e4ce00fe7683152b55e336  595f9f57fe7683316b2dda8c   
+        
+                                                seed\_surface  \textbackslash{}
+        0  Monticolo, I capitolari delle arti veneziane, {\ldots}   
+        1  Monticolo, I capitolari delle arti veneziane, {\ldots}   
+        2  Monticolo, I capitolari delle arti veneziane, {\ldots}   
+        3  Monticolo, I capitolari delle arti veneziane, {\ldots}   
+        4  Monticolo, I capitolari delle arti veneziane, {\ldots}   
+        
+                             ref\_id                    doc\_id  \textbackslash{}
+        0  58e4ce00fe7683152b55e336  595f9f57fe7683316b2dda8c   
+        1  58e4ce01fe7683152b57c0c4  595f9d70fe7683316b2dcf22   
+        2  58e4ce00fe7683152b55f1db  595f9f9ffe7683316b2ddc03   
+        3  58e4ce01fe7683152b57d1be  595f9d61fe7683316b2dccaf   
+        4  58e4ce00fe7683152b55f1f7  595f9fddfe7683316b2ddd4f   
+        
+                                                     surface  True  Hash  
+        0  Monticolo, I capitolari delle arti veneziane, {\ldots}     0     1  
+        1  G. Giomo e F. Visentini, Le grosse galere Vene{\ldots}     0     1  
+        2                    Prodi, Intervento cit., p. 216.     0     1  
+        3  G. Monticolo, I capitolari delle Arti venezian{\ldots}     0     1  
+        4  Giacomo Nani, Della difesa di Venezia, a cura {\ldots}     0     1  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{df\PYZus{}temp} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}pickle}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hashsplit1.pickle}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{df\PYZus{}temp}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:}                      ref\_id                    doc\_id  \textbackslash{}
+         0  58e4ce00fe7683152b55e325  595f9e11fe7683316b2dd3f5   
+         0  58e4ce00fe7683152b55e325  595f9e11fe7683316b2dd3f5   
+         0  58e4ce00fe7683152b55e325  595f9e11fe7683316b2dd3f5   
+         0  58e4ce00fe7683152b55e325  595f9e11fe7683316b2dd3f5   
+         0  58e4ce00fe7683152b55e325  595f9e11fe7683316b2dd3f5   
+         
+                                                      surface                hashtag  
+         0  ATTI DELL’ATENEO necrologio GIOVANNI MANETTI F{\ldots}  giovanni\#asilo\#scilla  
+         0  ATTI DELL’ATENEO necrologio GIOVANNI MANETTI F{\ldots}  ateneo\#soci\#scomparsi  
+         0  ATTI DELL’ATENEO necrologio GIOVANNI MANETTI F{\ldots}            veneti\#rico  
+         0  ATTI DELL’ATENEO necrologio GIOVANNI MANETTI F{\ldots}      giovanni\#fra\#soci  
+         0  ATTI DELL’ATENEO necrologio GIOVANNI MANETTI F{\ldots}  giovanni\#opera\#tesori  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k}{def} \PY{n+nf}{get\PYZus{}repr}\PY{p}{(}\PY{n}{did}\PY{p}{)}\PY{p}{:}
+            \PY{n}{a} \PY{o}{=} \PY{n}{Article}\PY{o}{.}\PY{n}{objects}\PY{p}{(}\PY{n}{\PYZus{}id}\PY{o}{=}\PY{n}{did}\PY{p}{)}
+            \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{:} 
+                \PY{k}{return} \PY{n+nb}{repr}\PY{p}{(}\PY{n}{a}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+            
+            \PY{n}{b} \PY{o}{=} \PY{n}{Book}\PY{o}{.}\PY{n}{objects}\PY{p}{(}\PY{n}{\PYZus{}id}\PY{o}{=}\PY{n}{did}\PY{p}{)}
+            \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{b}\PY{p}{)}\PY{p}{:} 
+                \PY{k}{return} \PY{n+nb}{repr}\PY{p}{(}\PY{n}{b}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+            
+            \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k}{def} \PY{n+nf}{hash\PYZus{}match\PYZus{}csv}\PY{p}{(}\PY{n}{rid}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{} get hashes of the ref}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{13}\PY{p}{)}\PY{p}{:}
+                \PY{n}{df\PYZus{}temp} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}pickle}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{./pickle/hashsample/hashsample}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{.pickle}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+                \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}temp}\PY{p}{[}\PY{n}{df\PYZus{}temp}\PY{o}{.}\PY{n}{ref\PYZus{}id}\PY{o}{==}\PY{n}{rid}\PY{p}{]}\PY{p}{)} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{:}
+                    \PY{n}{hashes} \PY{o}{=} \PY{n}{df\PYZus{}temp}\PY{p}{[}\PY{n}{df\PYZus{}temp}\PY{o}{.}\PY{n}{ref\PYZus{}id}\PY{o}{==}\PY{n}{rid}\PY{p}{]}\PY{o}{.}\PY{n}{hashes}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                    \PY{n}{doc\PYZus{}id} \PY{o}{=} \PY{n}{df\PYZus{}temp}\PY{p}{[}\PY{n}{df\PYZus{}temp}\PY{o}{.}\PY{n}{ref\PYZus{}id}\PY{o}{==}\PY{n}{rid}\PY{p}{]}\PY{o}{.}\PY{n}{doc\PYZus{}id}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                    \PY{n}{surface} \PY{o}{=} \PY{n}{df\PYZus{}temp}\PY{p}{[}\PY{n}{df\PYZus{}temp}\PY{o}{.}\PY{n}{ref\PYZus{}id}\PY{o}{==}\PY{n}{rid}\PY{p}{]}\PY{o}{.}\PY{n}{surface}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                    \PY{k}{break}
+            
+            \PY{c+c1}{\PYZsh{} get all matches}
+            \PY{n}{list\PYZus{}result} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{13}\PY{p}{)}\PY{p}{:}
+                \PY{n}{df\PYZus{}temp} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}pickle}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{./pickle/hashsplit/hashsplit}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{.pickle}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+                \PY{n}{list\PYZus{}result}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{df\PYZus{}temp}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hashtag in @hashes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ref\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{doc\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{surface}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hashtag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+            \PY{n}{pd\PYZus{}result} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{n}{list\PYZus{}result}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{} with hashes}
+            \PY{n}{pd\PYZus{}result}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{seed\PYZus{}ref\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{rid}
+            \PY{n}{pd\PYZus{}result}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{seed\PYZus{}doc\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{doc\PYZus{}id}
+            \PY{n}{pd\PYZus{}result}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{seed\PYZus{}doc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{get\PYZus{}repr}\PY{p}{(}\PY{n}{doc\PYZus{}id}\PY{p}{)}
+            \PY{n}{pd\PYZus{}result}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{seed\PYZus{}surface}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{surface}
+            \PY{n}{pd\PYZus{}result}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{doc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd\PYZus{}result}\PY{o}{.}\PY{n}{doc\PYZus{}id}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{get\PYZus{}repr}\PY{p}{)}
+            \PY{n}{cols} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{seed\PYZus{}ref\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{seed\PYZus{}doc\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{seed\PYZus{}doc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{seed\PYZus{}surface}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ref\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{doc\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{doc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{surface}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hashtag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            \PY{n}{pd\PYZus{}result} \PY{o}{=} \PY{n}{pd\PYZus{}result}\PY{p}{[}\PY{n}{cols}\PY{p}{]}
+            
+            \PY{c+c1}{\PYZsh{} without hashes only matches}
+            \PY{n}{pd\PYZus{}csv} \PY{o}{=} \PY{n}{pd\PYZus{}result}\PY{p}{[}\PY{n}{cols}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+            \PY{n}{pd\PYZus{}csv} \PY{o}{=} \PY{n}{pd\PYZus{}csv}\PY{o}{.}\PY{n}{drop\PYZus{}duplicates}\PY{p}{(}\PY{p}{)}
+            \PY{n}{pd\PYZus{}csv}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{True}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{n}{pd\PYZus{}csv}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hash}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+            
+            \PY{n}{length} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{pd\PYZus{}csv}\PY{p}{)}
+            
+            \PY{n}{pd\PYZus{}result}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./sample\PYZus{}csv/}\PY{l+s+si}{\PYZob{}length\PYZcb{}}\PY{l+s+s1}{\PYZus{}}\PY{l+s+si}{\PYZob{}rid\PYZcb{}}\PY{l+s+s1}{\PYZus{}hashes.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{pd\PYZus{}csv}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./sample\PYZus{}csv/}\PY{l+s+si}{\PYZob{}length\PYZcb{}}\PY{l+s+s1}{\PYZus{}}\PY{l+s+si}{\PYZob{}rid\PYZcb{}}\PY{l+s+s1}{.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            
+            \PY{k}{return} \PY{n}{pd\PYZus{}result}\PY{p}{,} \PY{n}{pd\PYZus{}csv}\PY{p}{,} \PY{n}{length}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k}{def} \PY{n+nf}{find\PYZus{}match}\PY{p}{(}\PY{n}{rid}\PY{p}{)}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{Reference}\PY{o}{.}\PY{n}{objects}\PY{p}{(}\PY{n}{\PYZus{}id}\PY{o}{=}\PY{n}{rid}\PY{p}{)}\PY{o}{.}\PY{n}{first}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reference\PYZus{}string}\PY{p}{)}
+            \PY{n}{pd\PYZus{}result}\PY{p}{,} \PY{n}{pd\PYZus{}csv}\PY{p}{,} \PY{n}{length} \PY{o}{=} \PY{n}{hash\PYZus{}match\PYZus{}csv}\PY{p}{(}\PY{n}{rid}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total matches: }\PY{l+s+si}{\PYZob{}length\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{rids} \PY{o}{=} \PY{p}{[}\PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{58e4ce00fe7683152b566af1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{58e4ce00fe7683152b55e336}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{58e4ce00fe7683152b55e33f}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{58e4ce00fe7683152b55e34f}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{58e4ce00fe7683152b55e370}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{58e4ce00fe7683152b55e38b}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{58e4ce00fe7683152b55e39d}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{58e4ce00fe7683152b55e39e}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{58e4ce00fe7683152b55e3a9}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{58e4ce00fe7683152b560601}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{rid} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{rids}\PY{p}{)}\PY{p}{:} 
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+             \PY{n}{find\PYZus{}match}\PY{p}{(}\PY{n}{rid}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0
+Da Canal Vincenzo, Vita di Gregorio Lazzarini [pubblicata da Gian- nantonio Moschini], Venezia, Stamperia Palese, 1809.
+Total matches: 180
+
+
+1
+Monticolo, I capitolari delle arti veneziane, voi. n, Roma 1905, p. 467
+Total matches: 418
+
+
+2
+Morassi, Novità e precisazioni sul Tiepolo in « Le Arti », 1942, p. 91.
+Total matches: 18
+
+
+3
+M. Sañudo, Itinerario per la terra di Venezia nel 1483, Padova, 1847.
+Total matches: 118
+
+
+4
+Achille Bosisio, Giosuè Carducci e un letterale Veneziano, in «Ateneo Veneto », Aprile-Giugno 1942, p. 105.
+Total matches: 2899
+
+
+5
+Cicogna, Delle inscrizioni veneziane, Venezia 1824-1853, voi. iv, p. 181.
+Total matches: 1140
+
+
+6
+G. Pavanello, La Scuola di S. Fan · tin ora Ateneo Veneto, Venezia, 1914;
+Total matches: 2886
+
+
+7
+R. Predelli, Le memorie e le carte di Alessandro Vittoria, Trento, 1908.
+Total matches: 546
+
+
+8
+Thieme Becker, Künstler Lexikon», Lipsia, 1908, vol. II, pp. 49*50)
+Total matches: 94
+
+
+9
+F.X. KRAUS, F. Petrarca e la sua corrispondenza epistolare, trad. D. VALBUSA; in Firenze, 1901
+Total matches: 32
+
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{rids\PYZus{}2} \PY{o}{=} \PY{p}{[}\PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{58e4ce00fe7683152b55e545}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                   \PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{58e4ce01fe7683152b58bd7d}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                   \PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{58e4ce01fe7683152b58ced4}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                   \PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{58e4ce00fe7683152b55e8d0}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                   \PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{58e4ce00fe7683152b55e998}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                   \PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{58e4ce00fe7683152b55eb67}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                   \PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{58e4ce00fe7683152b55ee21}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                   \PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{58e4ce00fe7683152b55fd7b}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                   \PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{58e4ce00fe7683152b561053}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                   \PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{58e4ce00fe7683152b56268f}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{rid} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{rids\PYZus{}2}\PY{p}{)}\PY{p}{:} 
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+             \PY{n}{find\PYZus{}match}\PY{p}{(}\PY{n}{rid}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0
+Vita di Apostolo Zeno scrisse Francesco Negri (Venezia, Alvisopoli, 1816),
+Total matches: 296
+
+
+1
+Zanipolo catalogue by D. M. Berardelli, published in Nuova Raccolta d’Opuscoli Scientifici e Filologici (ed. Calo- gerà), 32-40 (1778-84),
+Total matches: 312
+
+
+2
+Diverse Orationi volgarmente scritte, raccolte per Francesco Sansovino, Venice 1561, ff. 51-54v, especially f. 52 v.
+Total matches: 128
+
+
+3
+G. CASANOVA, Istoria delle turbolenze della Polonia , Marsilio, Padova 1974, p. 55.
+Total matches: 32
+
+
+4
+Grillo, Venezia. Le difese a mare. Profilo architettonico delle opere di dife- sa idraulica nei litorali di Venezia, Venezia 1989, fig. ΧΧΧΠΙ p. 212.
+Total matches: 1870
+
+
+5
+GABRIELLA FERRI PlCCALUGA, Il confine del Nord , Boario Terme 1989, pp. 305-334
+Total matches: 56
+
+
+6
+A. Rizzi, Canaletto w Warszawie, p. 68, fig. 20, p. 66;
+Total matches: 2
+
+
+7
+Vollard, En écoutant Cézanne, Degas, Renoir, Paris 1838, pp. 201-202.
+Total matches: 1
+
+
+8
+FEDALTO, Hierarchia latina, Cala- monensis. 10CORNER, Creta sacra, II, pp. 149-159;
+Total matches: 87
+
+
+9
+E VENDRAMINI, La Pieve e le Regole, pp. 337-345.
+Total matches: 17
+
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{rid} \PY{o}{=} \PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{58e4ce00fe7683152b5639a3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{find\PYZus{}match}\PY{p}{(}\PY{n}{rid}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+S. Marco, Lettera inedita di Giustina Renier Michiel alla figlia, pubbl. dal dott. Cesare Musatti per le nozze Musatti-Coen, Venezia 1893.
+Total matches: 203
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{rid} \PY{o}{=} \PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{58e4ce00fe7683152b5639bd}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{find\PYZus{}match}\PY{p}{(}\PY{n}{rid}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+A. Quatremère de Quincy, Canova et ses ouvrages, Paris 1834, p. 288s.
+Total matches: 30
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{rid} \PY{o}{=} \PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{58e4ce00fe7683152b563b99}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{find\PYZus{}match}\PY{p}{(}\PY{n}{rid}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+M. L. Gonelli, La scuola storica, in Storia della letteratura italiana, diretta da
+Total matches: 2278
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{rid} \PY{o}{=} \PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{58e4ce00fe7683152b563b9c}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{find\PYZus{}match}\PY{p}{(}\PY{n}{rid}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+M. Moretti, Gentile, D'Ancona e la 'scuola' pisana, «Giornale critico della filosofìa italiana», LXXVIII, 1999, pp. 65-116.
+Total matches: 102
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{rid} \PY{o}{=} \PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{58e4ce00fe7683152b563bb3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{find\PYZus{}match}\PY{p}{(}\PY{n}{rid}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+D. COMPAGNI, La Cronica, introduzione e com- mento di G. Luzzatio, Milano 1906, pp. V- XXXIX, p. XVI.
+Total matches: 1
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{rid} \PY{o}{=} \PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{58e4ce01fe7683152b59d6dc}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{find\PYZus{}match}\PY{p}{(}\PY{n}{rid}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+E. Concina, Città e fartele nelle “ tre isole nostre", in Venera e la difesa del Le- vante. Da Lepanto a Candía tyyo-tóyo, Venezia, Arsenale, 1986, p. 189,
+Total matches: 431
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{rid} \PY{o}{=} \PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{58e4ce01fe7683152b5a11e8}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{find\PYZus{}match}\PY{p}{(}\PY{n}{rid}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+G. Van Der Sman, L’Eolia di Villa Trento: arte e umanesimo letterario vicentino, in «Arte Veneta», XLII (1988), pp. 58-67.
+Total matches: 4037
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{rid} \PY{o}{=} \PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{5919e9663dde944752f5c95b}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{find\PYZus{}match}\PY{p}{(}\PY{n}{rid}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+G. Cracco, Il pensiero storico di fronte ai problemi del comune veneziano , pp. 46-50.
+Total matches: 186
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{rid} \PY{o}{=} \PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{5919e9663dde944752f5c95e}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{find\PYZus{}match}\PY{p}{(}\PY{n}{rid}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+A. Limentani, Cinque note su Martino da Canal,  in «Atti dell’Istituto Veneto di Scienze, Lettere ed Arti», 124 (1965-1966),  pp. 257-281;
+Total matches: 6394
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{find\PYZus{}match}\PY{p}{(}\PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{5919e9663dde944752f5f058}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+J. Monfasani, George of Trebizond, p. 23 n. 102.
+Total matches: 79
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{find\PYZus{}match}\PY{p}{(}\PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{5919e9663dde944752f6790e}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Corner, Notizie storiche, pp.239-241;
+Total matches: 1251
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{find\PYZus{}match}\PY{p}{(}\PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{5919e9663dde944752f67922}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+D. Gutierrez, Testi e note su Mariano da Gennazzano (+1498), «Analecta Augustiniana», XXXII, 1969, pp. 117-204;
+Total matches: 9
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{find\PYZus{}match}\PY{p}{(}\PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{59e0adbbf98262071bfa4fb4}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+H. Honour, Chinoiserie. The Vision of Cathay, Londres, 1973, p. 119 sq.
+Total matches: 56
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{find\PYZus{}match}\PY{p}{(}\PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{59de7a3348e232540c5f1454}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Stellini, Poesie originali e tradotte, Padova 1782, pp. 99-245.
+Total matches: 18
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{find\PYZus{}match}\PY{p}{(}\PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{59de7a3348e232540c5f5fe7}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+D. Malipiero, Annali veneti dall’anno 145 7 al 1500, Francesco Longo, Firenze 1843, p. 41.
+Total matches: 737
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{find\PYZus{}match}\PY{p}{(}\PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{59de7a3348e232540c5f600f}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+M. Brunetti, E. Vitale (a cura di), Corrispondenza da Madrid di Leonardo Dona, Venezia-Roma 1963, t. II, p. 688,
+Total matches: 2960
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{find\PYZus{}match}\PY{p}{(}\PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{59df53cf9be3c75c2e686616}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C. Ghisalberti, La codificazione del diritto in Italia 1865/1942, Bari-Roma 1985, p. 154 ss.;
+Total matches: 71
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{find\PYZus{}match}\PY{p}{(}\PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{59df6ec59be3c75dd98bf26b}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Samonà, Il piano Panfani in rapporto all’attività edilizia dei liberi professionisti, in «Metron», n. 33-34.
+Total matches: 153
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{find\PYZus{}match}\PY{p}{(}\PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{58e4ce01fe7683152b59acb8}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Sapori, Una compagnia di Calimala ai primi del Trecento, Firenze 1932, p. 232.
+Total matches: 145
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{find\PYZus{}match}\PY{p}{(}\PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{58e4ce00fe7683152b5625bf}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+TRAMONTIN, A. NIERO, G. MUSOLINO, C. CANDI ANI, Culto dei Santi aVenezia, voi. 2°, Venezia 1965, p. 159- 9
+Total matches: 818
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{rid} \PY{o}{=} \PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{58e4ce00fe7683152b55e336}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{Reference}\PY{o}{.}\PY{n}{objects}\PY{p}{(}\PY{n}{\PYZus{}id}\PY{o}{=}\PY{n}{rid}\PY{p}{)}\PY{o}{.}\PY{n}{first}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reference\PYZus{}string}\PY{p}{)}
+         \PY{n}{pd\PYZus{}result}\PY{p}{,} \PY{n}{pd\PYZus{}csv} \PY{o}{=} \PY{n}{hash\PYZus{}match\PYZus{}csv}\PY{p}{(}\PY{n}{rid}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Monticolo, I capitolari delle arti veneziane, voi. n, Roma 1905, p. 467
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{rid} \PY{o}{=} \PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{58e4ce00fe7683152b55e33f}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{Reference}\PY{o}{.}\PY{n}{objects}\PY{p}{(}\PY{n+nb}{id}\PY{o}{=}\PY{n}{rid}\PY{p}{)}\PY{o}{.}\PY{n}{first}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reference\PYZus{}string}\PY{p}{)}
+        \PY{n}{pd\PYZus{}result}\PY{p}{,} \PY{n}{pd\PYZus{}csv} \PY{o}{=} \PY{n}{hash\PYZus{}match\PYZus{}csv}\PY{p}{(}\PY{n}{rid}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Morassi, Novità e precisazioni sul Tiepolo in « Le Arti », 1942, p. 91.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{rid} \PY{o}{=} \PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{58e4ce00fe7683152b55e34f}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{Reference}\PY{o}{.}\PY{n}{objects}\PY{p}{(}\PY{n+nb}{id}\PY{o}{=}\PY{n}{rid}\PY{p}{)}\PY{o}{.}\PY{n}{first}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reference\PYZus{}string}\PY{p}{)}
+         \PY{n}{pd\PYZus{}result}\PY{p}{,} \PY{n}{pd\PYZus{}csv} \PY{o}{=} \PY{n}{hash\PYZus{}match\PYZus{}csv}\PY{p}{(}\PY{n}{rid}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+M. Sañudo, Itinerario per la terra di Venezia nel 1483, Padova, 1847.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{rid} \PY{o}{=} \PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{58e4ce00fe7683152b55e370}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{Reference}\PY{o}{.}\PY{n}{objects}\PY{p}{(}\PY{n+nb}{id}\PY{o}{=}\PY{n}{rid}\PY{p}{)}\PY{o}{.}\PY{n}{first}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reference\PYZus{}string}\PY{p}{)}
+         \PY{n}{pd\PYZus{}result}\PY{p}{,} \PY{n}{pd\PYZus{}csv} \PY{o}{=} \PY{n}{hash\PYZus{}match\PYZus{}csv}\PY{p}{(}\PY{n}{rid}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Achille Bosisio, Giosuè Carducci e un letterale Veneziano, in «Ateneo Veneto », Aprile-Giugno 1942, p. 105.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{rid} \PY{o}{=} \PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{58e4ce00fe7683152b55e38b}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{Reference}\PY{o}{.}\PY{n}{objects}\PY{p}{(}\PY{n+nb}{id}\PY{o}{=}\PY{n}{rid}\PY{p}{)}\PY{o}{.}\PY{n}{first}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reference\PYZus{}string}\PY{p}{)}
+         \PY{n}{pd\PYZus{}result}\PY{p}{,} \PY{n}{pd\PYZus{}csv} \PY{o}{=} \PY{n}{hash\PYZus{}match\PYZus{}csv}\PY{p}{(}\PY{n}{rid}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Cicogna, Delle inscrizioni veneziane, Venezia 1824-1853, voi. iv, p. 181.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{n}{rid} \PY{o}{=} \PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{58e4ce00fe7683152b55e39d}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{Reference}\PY{o}{.}\PY{n}{objects}\PY{p}{(}\PY{n+nb}{id}\PY{o}{=}\PY{n}{rid}\PY{p}{)}\PY{o}{.}\PY{n}{first}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reference\PYZus{}string}\PY{p}{)}
+         \PY{n}{pd\PYZus{}result}\PY{p}{,} \PY{n}{pd\PYZus{}csv} \PY{o}{=} \PY{n}{hash\PYZus{}match\PYZus{}csv}\PY{p}{(}\PY{n}{rid}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+G. Pavanello, La Scuola di S. Fan · tin ora Ateneo Veneto, Venezia, 1914;
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{rid} \PY{o}{=} \PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{58e4ce00fe7683152b55e39e}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{Reference}\PY{o}{.}\PY{n}{objects}\PY{p}{(}\PY{n+nb}{id}\PY{o}{=}\PY{n}{rid}\PY{p}{)}\PY{o}{.}\PY{n}{first}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reference\PYZus{}string}\PY{p}{)}
+         \PY{n}{pd\PYZus{}result}\PY{p}{,} \PY{n}{pd\PYZus{}csv} \PY{o}{=} \PY{n}{hash\PYZus{}match\PYZus{}csv}\PY{p}{(}\PY{n}{rid}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+R. Predelli, Le memorie e le carte di Alessandro Vittoria, Trento, 1908.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{rid} \PY{o}{=} \PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{58e4ce00fe7683152b55e3a9}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{Reference}\PY{o}{.}\PY{n}{objects}\PY{p}{(}\PY{n+nb}{id}\PY{o}{=}\PY{n}{rid}\PY{p}{)}\PY{o}{.}\PY{n}{first}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reference\PYZus{}string}\PY{p}{)}
+         \PY{n}{pd\PYZus{}result}\PY{p}{,} \PY{n}{pd\PYZus{}csv} \PY{o}{=} \PY{n}{hash\PYZus{}match\PYZus{}csv}\PY{p}{(}\PY{n}{rid}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Thieme Becker, Künstler Lexikon», Lipsia, 1908, vol. II, pp. 49*50)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{rid} \PY{o}{=} \PY{n}{ObjectId}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{58e4ce00fe7683152b560601}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{Reference}\PY{o}{.}\PY{n}{objects}\PY{p}{(}\PY{n+nb}{id}\PY{o}{=}\PY{n}{rid}\PY{p}{)}\PY{o}{.}\PY{n}{first}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reference\PYZus{}string}\PY{p}{)}
+         \PY{n}{pd\PYZus{}result}\PY{p}{,} \PY{n}{pd\PYZus{}csv} \PY{o}{=} \PY{n}{hash\PYZus{}match\PYZus{}csv}\PY{p}{(}\PY{n}{rid}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+F.X. KRAUS, F. Petrarca e la sua corrispondenza epistolare, trad. D. VALBUSA; in Firenze, 1901
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
